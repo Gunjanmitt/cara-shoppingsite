@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Reviews with Photos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    #reviews {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #reviews h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    form input[type="text"],
+    form textarea,
+    form select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    form input[type="file"] {
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+
+    #reviewList {
+      margin-top: 30px;
+    }
+
+    #reviewList div {
+      background: #fafafa;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-left: 4px solid #27ae60;
+      border-radius: 5px;
+    }
+
+    #reviewList img {
+      max-width: 150px;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <section id="reviews">
+    <h2>Customer Reviews</h2>
+    <form id="reviewForm" enctype="multipart/form-data">
+      <label>Your Name:
+        <input type="text" id="username" required />
+      </label>
+
+      <label>Rating:
+        <select id="rating" required>
+          <option value="5">⭐⭐⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+          <option value="2">⭐⭐</option>
+          <option value="1">⭐</option>
+        </select>
+      </label>
+
+      <label>Your Review:
+        <textarea id="comment" rows="4" required></textarea>
+      </label>
+
+      <label>Upload Image:
+        <input type="file" id="photoUpload" accept="image/*" />
+      </label>
+
+      <button type="submit">Submit Review</button>
+    </form>
+
+    <div id="reviewList"></div>
+  </section>
+
+  <script>
+    document.getElementById("reviewForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("username").value;
+      const rating = document.getElementById("rating").value;
+      const comment = document.getElementById("comment").value;
+      const file = document.getElementById("photoUpload").files[0];
+
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        const reviewDiv = document.createElement("div");
+        reviewDiv.innerHTML = `
+          <h4>${name} - ${"⭐".repeat(rating)}</h4>
+          <p>${comment}</p>
+          ${file ? `<img src="${event.target.result}" alt="Review Image" />` : ""}
+        `;
+        document.getElementById("reviewList").prepend(reviewDiv);
+        document.getElementById("reviewForm").reset();
+      };
+
+      if (file) {
+        reader.readAsDataURL(file); // show image preview
+      } else {
+        reader.onload(); // just show text review
+      }
+    });
+  </script>
+
+</body>
+</html>

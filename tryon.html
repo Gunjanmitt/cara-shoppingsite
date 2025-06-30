@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Virtual Try-On</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 30px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .preview {
+      margin-top: 15px;
+    }
+    .preview img {
+      max-width: 100%;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🧥 Virtual Try-On</h2>
+  <form id="tryonForm">
+    <label for="userInput">User Image:</label>
+    <input type="file" id="userInput" name="user" accept="image/*" required>
+
+    <label for="clothInput">Cloth Image (PNG with transparency):</label>
+    <input type="file" id="clothInput" name="cloth" accept="image/png" required>
+
+    <button type="submit" style="margin-top: 20px;">👕 Try On</button>
+  </form>
+
+  <div class="preview">
+    <h3>👤 User Preview</h3>
+    <img id="userPreview" src="" alt="User Image Preview" />
+  </div>
+
+  <div class="preview">
+    <h3>👚 Cloth Preview</h3>
+    <img id="clothPreview" src="" alt="Cloth Image Preview" />
+  </div>
+
+  <div class="preview">
+    <h3>🎯 Try-On Result</h3>
+    <img id="resultImg" src="" alt="Try-On Result" />
+  </div>
+</div>
+
+<script>
+  const userInput = document.getElementById('userInput');
+  const clothInput = document.getElementById('clothInput');
+  const userPreview = document.getElementById('userPreview');
+  const clothPreview = document.getElementById('clothPreview');
+  const resultImg = document.getElementById('resultImg');
+
+  userInput.addEventListener('change', () => {
+    const file = userInput.files[0];
+    if (file) {
+      userPreview.src = URL.createObjectURL(file);
+    }
+  });
+
+  clothInput.addEventListener('change', () => {
+    const file = clothInput.files[0];
+    if (file) {
+      clothPreview.src = URL.createObjectURL(file);
+    }
+  });
+
+  document.getElementById('tryonForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("user", userInput.files[0]);
+    formData.append("cloth", clothInput.files[0]);
+
+    const response = await fetch('http://127.0.0.1:5000/tryon', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+      const blob = await response.blob();
+      resultImg.src = URL.createObjectURL(blob);
+    } else {
+      const errorText = await response.text();
+      alert('❌ Try-on failed: ' + errorText);
+    }
+  });
+</script>
+
+</body>
+</html>

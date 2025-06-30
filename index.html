@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cara E-Commerce</title>
+ 
+
+
+  <style>
+     /* Light Mode Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f2f2f2;
+      padding: 1rem 2rem;
+    }
+
+    /* Toggle Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 25px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 4px;
+      bottom: 3.5px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #121212df;
+      color: #f1f1f1;
+    }
+
+    body.dark-mode .navbar {
+      background: #1e1e1e;
+    }
+
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background: #f9f9f9;
+      color: #333;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .logo {
+      width: 120px;
+    }
+    .nav-links a {
+      margin-left: 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #333;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3rem 2rem;
+      background: #e3e6f3;
+      flex-wrap: wrap;
+    }
+    .hero-text {
+      flex: 1;
+      max-width: 500px;
+    }
+    .hero-text .tagline {
+      color: #088178;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .hero-text h1 {
+      font-size: 3rem;
+      margin: 0.5rem 0;
+    }
+    .hero-text h2 {
+      font-size: 2rem;
+      color: #555;
+    }
+    .hero-text .subtext {
+      margin: 1rem 0;
+    }
+    .hero-img {
+      flex: 1;
+      max-width: 400px;
+    }
+    .btn {
+      padding: 0.7rem 1.5rem;
+      background: #088178;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #066e66;
+    }
+
+    /* Features */
+    #features {
+      padding: 2rem;
+      text-align: center;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* Products */
+    #products {
+      padding: 2rem;
+      
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+      
+    }
+    .product {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      
+    }
+    .product p {
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+
+    
+
+    /* About */
+    #about {
+      padding: 2rem;
+      background: #fff;
+      text-align: center;
+    }
+    .about-images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .about-images img {
+      max-width: 200px;
+      border-radius: 120px;
+    }
+
+    /* Special Offers */
+   #special-offers {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+   }
+
+/* Container for all offers */
+/* Offer section container */
+.offer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.offer-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.offer-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 200px;
+  transition: transform 0.3s ease;
+  background-color: #fff;
+  text-align: center;
+}
+
+.offer-card:hover {
+  transform: scale(1.05);
+}
+
+.offer-card img {
+  width: 100%;
+  height: auto;
+}
+
+.offer-card p {
+  margin: 0;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* Individual Offer Card */
+.offer-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* ensures same width within the grid cell */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.offer-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.offer-card p {
+  padding: 12px;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
+
+
+
+/* Responsive layout */
+@media (max-width: 600px) {
+  .offer-container {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .offer-card img {
+    height: 120px;
+  }
+}
+
+
+    /* Blog Section */
+    .blog-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.blog-card {
+  width: 220px;
+  text-align: center;
+}
+
+.blog-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.blog-card img:hover {
+  transform: scale(1.03);
+}
+
+.blog-card p {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+
+    /* Testimonials */
+    #testimonials {
+      padding: 2rem;
+      text-align: center;
+    }
+    .testimonial-people {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .testimonial-people img {
+      max-width: 80px;
+      border-radius: 50%;
+    }
+
+    /* Payment */
+    #payment {
+      padding: 2rem;
+      background: #fff;
+      text-align: center;
+    }
+    .payment-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .payment-icons img {
+      max-width: 120px;
+    }
+
+    /* Footer */
+    footer {
+      background: #088178;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  
+
+
+ <!-- Header -->
+<nav class="navbar">
+  <img src="img/logo.png" class="logo" />
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+    <a href="contact.html">Contact</a>
+    <a href="blog.html">Blog</a>
+    <a href="help.html">Help</a>
+    <a href="about.html">About</a>
+
+    <!-- 🔁 Dark Mode Toggle added inline -->
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle" />
+      <span class="slider round"></span>
+    </label>
+  </div>
+</nav>
+
+
+
+  <!-- Hero Section -->
+   <!-- In index.html -->
+
+
+  <section class="hero">
+    <div class="hero-text">
+      <p class="tagline">Trade-in-offer</p>
+      <h1>Super value deals</h1>
+      <h2>On all products
+      </h2>
+
+
+      
+      <p class="subtext">Save more with coupons & up to 70% off!</p>
+      <button class="btn">Shop Now</button>
+    </div>
+    <div class="hero-img">
+      <img src="img/hero4.png" alt="Hero Image" />
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <h2>Why Shop With Us?</h2>
+    <div class="features-grid">
+      <img src="img/features/f1.png"  alt="Free Shipping" />
+      <img src="img/features/f2.png" alt="Online Order" />
+      <img src="img/features/f3.png" alt="Save Money" />
+      <img src="img/features/f4.png" alt="Promotions" />
+      <img src="img/features/f5.png" alt="Happy Sell" />
+      <img src="img/features/f6.png" alt="24/7 Support" />
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+   
+
+  <section id="products">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <div class="product"><img src="img/products/f1.jpg" alt="F1" /><p>$89.99</p></div>
+      <div class="product"><img src="img/products/f2.jpg" alt="F2" /><p>$99.99</p></div>
+      <div class="product"><img src="img/products/f3.jpg" alt="F3" /><p>$79.99</p></div>
+      <div class="product"><img src="img/products/f4.jpg" alt="F4" /><p>$59.99</p></div>
+      <div class="product"><img src="img/products/f5.jpg" alt="F5" /><p>$89.99</p></div>
+      <div class="product"><img src="img/products/f6.jpg" alt="F6" /><p>$99.99</p></div>
+      <div class="product"><img src="img/products/f7.jpg" alt="F7" /><p>$79.99</p></div>
+      
+    </div>
+
+    <h2>New Arrivals</h2>
+    <div class="product-grid">
+      <div class="product"><img src="img/products/n1.jpg" alt="N1" /><p>$69.99</p></div>
+      <div class="product"><img src="img/products/n2.jpg" alt="N2" /><p>$74.99</p></div>
+      <div class="product"><img src="img/products/n3.jpg" alt="N3" /><p>$64.99</p></div>
+      <div class="product"><img src="img/products/n4.jpg" alt="N4" /><p>$54.99</p></div>
+      <div class="product"><img src="img/products/n5.jpg" alt="N5" /><p>$69.99</p></div>
+      <div class="product"><img src="img/products/n6.jpg" alt="N6" /><p>$74.99</p></div>
+      <div class="product"><img src="img/products/n7.jpg" alt="N7" /><p>$64.99</p></div>
+      
+    </div>
+  </section>
+
+   <h2>New collection</h2>
+    <div class="product-grid">
+      <div class="product"><img src="img/products/g1.jpg" alt="G1" /><p>$69.99</p></div>
+      <div class="product"><img src="img/products/g2.jpg" alt="G2" /><p>$74.99</p></div>
+      <div class="product"><img src="img/products/g3.jpg" alt="G3" /><p>$64.99</p></div>
+      <div class="product"><img src="img/products/g4.jpg" alt="G4" /><p>$54.99</p></div>
+      
+    </div>
+  </section>
+
+  <h2>Unique products</h2>
+    <div class="product-grid">
+      <div class="product"><img src="img/products/p1.jpg" alt="P1" /><p>$69.99</p></div>
+      <div class="product"><img src="img/products/p2.jpg" alt="P2" /><p>$74.99</p></div>
+      <div class="product"><img src="img/products/p3.jpg" alt="P3" /><p>$64.99</p></div>
+      <div class="product"><img src="img/products/p4.jpg" alt="P4" /><p>$54.99</p></div>
+      
+    </div>
+  </section>
+
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Cara is a trendsetting fashion brand that blends tradition with innovation.</p>
+    <div class="about-images">
+      <img src="img/about/a1.png" alt="About 1" />
+      <img src="img/about/a2.jpg" alt="About 2" />
+      <img src="img/about/a3.png" alt="About 3" />
+      <img src="img/about/a4.png" alt="About 4" />
+    </div>
+  </section>
+
+  <!-- Special Offers -->
+  <section id="special-offers">
+  <h2>Special Offers</h2>
+  <div class="offer-grid">
+    <a href="offer1.html" class="offer-link">
+      <div class="offer-card">
+        <img src="img/banner/b1.jpg" alt="Offer 1">
+        <p>Super Saver Combo 1</p>
+      </div>
+    </a>
+    <a href="offer2.html" class="offer-link">
+      <div class="offer-card">
+        <img src="img/banner/b10.jpg" alt="Offer 2">
+        <p>Buy 1 Get 1 Free</p>
+      </div>
+    </a>
+    <a href="offer3.html" class="offer-link">
+      <div class="offer-card">
+        <img src="img/banner/b19.jpg" alt="Offer 3">
+        <p>Flat 50% Off</p>
+      </div>
+    </a>
+    <a href="offer4.html" class="offer-link">
+      <div class="offer-card">
+        <img src="img/banner/b7.jpg" alt="Offer 4">
+        <p>New Arrival Offer</p>
+      </div>
+    </a>
+
+    <a href="offer5.html" class="offer-link">
+      <div class="offer-card">
+        <img src="img/banner/b2.jpg" alt="Offer 5">
+        <p>Exclusive Bundle</p>
+      </div>
+    </a>
+
+    <a href="offer6.html" class="offer-link">
+      <div class="offer-card">
+        <img src="img/banner/b17.jpg" alt="Offer 6">
+        <p>Clearance: Up to 70%</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+
+  <!-- Blog -->
+  <section id="blog">
+  <h2>From the Blog</h2>
+  <div class="blog-container">
+    <div class="blog-card">
+      <img src="img/blog/b21.jpg" alt="How to Style Denim">
+      <p>How to Style Denim</p>
+    </div>
+    <div class="blog-card">
+      <img src="img/blog/b22.jpg" alt="Best Looks of 2025">
+      <p>Best Looks of 2025</p>
+    </div>
+    <div class="blog-card">
+      <img src="img/blog/b3.jpg" alt="Wardrobe Essentials">
+      <p>Wardrobe Essentials</p>
+    </div>
+    <div class="blog-card">
+      <img src="img/blog/b23.jpg" alt="How to Style Denim">
+      <p>How to Style Denim</p>
+    </div>
+    <div class="blog-card">
+      <img src="img/blog/b24.jpg" alt="Best Looks of 2025">
+      <p>Best Looks of 2025</p>
+    </div>
+    <div class="blog-card">
+      <img src="img/blog/b6.jpg" alt="Wardrobe Essentials">
+      <p>Wardrobe Essentials</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial-people">
+      <img src="img/people/1.png" alt="Person 1" />
+      <img src="img/people/2.png" alt="Person 2" />
+      <img src="img/people/3.png" alt="Person 3" />
+    </div>
+  </section>
+
+  <!-- Payment -->
+  <section id="payment">
+    <h2>We Accept</h2>
+    <div class="payment-icons">
+      <img src="img/pay/app.jpg" alt="App" />
+      <img src="img/pay/play.jpg" alt="Play" />
+      <img src="img/pay/pay.png" alt="Pay Options" />
+    </div>
+  </section>
+  
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Cara E-Commerce. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggle = document.getElementById('darkModeToggle');
+      const isDark = localStorage.getItem('dark-mode') === 'true';
+
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        toggle.checked = true;
+      }
+
+      toggle.addEventListener('change', function () {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+      });
+    });
+  </script>
+  
+
+</body>
+</html> 

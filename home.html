@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cara | Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f8f8;
+    }
+    header {
+      background-color: #2a9d8f;
+      color: white;
+      padding: 20px 60px;
+      font-size: 28px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header-btn {
+      background: white;
+      color: #2a9d8f;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .header-btn:hover {
+      background: #e0f4f1;
+    }
+    .hero {
+      background: url('img/hero4.png') no-repeat center top/cover;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 60px;
+      padding-top: 60px;
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+      position: relative;
+    }
+    .hero::after {
+      content: "✨";
+      position: absolute;
+      top: 70px;
+      left: 50px;
+      font-size: 36px;
+      animation: sparkle 2s infinite ease-in-out;
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+    .section {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.4s ease, box-shadow 0.4s;
+    }
+    .product-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .product-card h3 {
+      margin: 10px 0 5px;
+    }
+    .product-card p {
+      color: #2a9d8f;
+      font-weight: bold;
+    }
+    .cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .cta a {
+      background-color: #2a9d8f;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .cta a:hover {
+      background-color: #238b7f;
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      transform: scale(1.05);
+    }
+
+    .popup {
+      position: fixed;
+      right: 30px;
+      top: 80px;
+      background-color: #ff6f61;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      z-index: 1001;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      animation: fadein 1s, moveup 0.5s ease-out;
+      display: none;
+    }
+    .popup span {
+      float: right;
+      margin-left: 15px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    @keyframes fadein {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes moveup {
+      from {transform: translateY(20px);}
+      to {transform: translateY(0);}
+    }
+
+    .chat-icon {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #2a9d8f;
+      color: white;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 1002;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .category {
+      background-color: #ffffff;
+      padding: 20px;
+      width: 200px;
+      text-align: center;
+      border-radius: 8px;
+      margin: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .category img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .testimonials {
+      background-color: #e9f5f2;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .testimonial {
+      max-width: 600px;
+      margin: 10px auto;
+      font-style: italic;
+    }
+
+    .newsletter {
+      background-color: #2a9d8f;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 10px;
+      width: 250px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .newsletter button {
+      padding: 10px 20px;
+      background-color: #fff;
+      color: #2a9d8f;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #ddd;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Hamburger icon */
+.hamburger-icon {
+  background-color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 26px;
+  width: 32px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+.hamburger-icon span {
+  display: block;
+  height: 3px;
+  background-color: #2a9d8f;
+  border-radius: 2px;
+}
+
+/* Sidebar */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px; /* hidden initially */
+  width: 280px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: right 0.3s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* When open */
+.side-menu.open {
+  right: 0;
+}
+
+/* Close button */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 26px;
+  float: right;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+/* Menu content */
+.menu-content {
+  margin-top: 20px;
+}
+.menu-content h2 {
+  color: #2a9d8f;
+  margin-bottom: 20px;
+}
+.menu-content a {
+  display: block;
+  padding: 12px 0;
+  text-decoration: none;
+  font-size: 18px;
+  color: #2a9d8f;
+  font-weight: 600;
+}
+.menu-content a:hover {
+  background-color: #f3f3f3;
+  border-radius: 6px;
+  padding-left: 8px;
+}
+
+
+    
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: #2a9d8f; color: white;">
+  <div style="font-weight: bold; font-size: 24px;">Cara</div>
+  <div class="header-right" style="display: flex; align-items: center;">
+    <button class="header-btn" onclick="window.location.href='login.html'">Login / Signup</button>
+
+    <!-- Hamburger Button -->
+    <button class="hamburger-icon" onclick="openSidebar()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Sliding Sidebar -->
+<div id="sideMenu" class="side-menu">
+  <button class="close-btn" onclick="closeSidebar()">×</button>
+  <div class="menu-content">
+    <h2>Cara Menu</h2>
+    <a href="fashion_challenges_files/challenge.html">Challenges</a>
+    <a href="order.html">order update</a>
+    <a href="shop.html">Shop</a>
+    <a href="referral-dashboard.html">Refer and Earn</a>
+    <a href="video.html">Studio shopping</a>
+    <a href="../ecomm-site/personal_shopper_bot_with_images/shopper-bot.html">Shop with lara</a>
+    <a href="customize.html">personalize your style</a>
+
+
+
+    <!-- You can add more menu links here -->
+  </div>
+</div>
+
+
+
+    </div>
+  </div>
+</header>
+
+
+<div class="hero">
+  Summer Sale is ON!
+</div>
+<!-- Mini Spin Wheel Popup -->
+<div id="spinPopup" style="
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #fff;
+  border: 3px dashed #2a9d8f;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  z-index: 999;
+  text-align: center;
+  animation: bounce 2s infinite;
+">
+  <p style="margin: 0; font-weight: bold;">🎁 Try Your Luck!</p>
+  <button onclick="location.href='spin.html'" style="
+    margin-top: 8px;
+    background: #2a9d8f;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  ">Spin Now</button>
+</div>
+
+<style>
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+</style>
+
+
+
+<!-- Delayed, closable popup -->
+<div class="popup" id="offerPopup">
+  🎉 30% OFF on New Arrivals – Limited Time!
+  <span onclick="document.getElementById('offerPopup').style.display='none'">✖</span>
+</div>
+
+<!-- Floating chat icon -->
+<div class="chat-icon" title="Need help?" onclick="alert('How can we help you today?')">💬</div>
+
+<div class="section" id="products">
+  <h2>Featured Products</h2>
+  <div class="products">
+    <div class="product-card">
+      <img src="img/products/f1.jpg" alt="Stylish Jacket">
+      <h3>Stylish Jacket</h3>
+      <p>$89.99</p>
+    </div>
+    <div class="product-card">
+      <img src="img/products/n1.jpg" alt="Floral Skirt">
+      <h3>Floral Skirt</h3>
+      <p>$45.00</p>
+    </div>
+    <div class="product-card">
+      <img src="img/products/p1.jpg" alt="Classic Watch">
+      <h3>Classic Watch</h3>
+      <p>$220.00</p>
+    </div>
+    <div class="product-card">
+      <img src="img/products/g1.jpg" alt="Trail Hiking Shoe">
+      <h3>Trail Hiking Shoe</h3>
+      <p>$95.00</p>
+    </div>
+  </div>
+  <div class="cta">
+    <a href="shop.html" id="shopLink">Shop Now</a>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Shop by Category</h2>
+  <div class="categories">
+    <div class="category">
+      <img src="img/products/f2.jpg" alt="Shirts">
+      <h4>Shirts</h4>
+    </div>
+    <div class="category">
+      <img src="img/products/g1.jpg" alt="Shoes">
+      <h4>Shoes</h4>
+    </div>
+    <div class="category">
+      <img src="img/products/p1.jpg" alt="Watches">
+      <h4>Watches</h4>
+    </div>
+    <div class="category">
+      <img src="img/products/n6.jpg" alt="New Arrivals">
+      <h4>New</h4>
+    </div>
+  </div>
+</div>
+
+<div class="testimonials">
+  <h2>What Customers Say</h2>
+  <div class="testimonial">
+    "Cara has amazing quality and fast shipping. I love everything I buy from here!"
+  </div>
+  <div class="testimonial">
+    "Stylish, trendy, and affordable. Cara is now my go-to fashion store!"
+  </div>
+</div>
+
+<div class="newsletter">
+  <h2>Subscribe to Our Newsletter</h2>
+  <p>Get updates on latest offers & new arrivals</p>
+  <input type="email" id="emailInput" placeholder="Enter your email">
+  <button onclick="subscribe()">Subscribe</button>
+</div>
+
+<footer>
+  <p>&copy; 2025 Cara | <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Instagram</a></p>
+</footer>
+
+<script>
+  // Show popup after delay
+  setTimeout(() => {
+    document.getElementById('offerPopup').style.display = 'block';
+  }, 2000);
+
+  // Newsletter subscription handler
+  function subscribe() {
+    const email = document.getElementById('emailInput').value;
+    if (email) {
+      alert(`Thanks for subscribing, ${email}!`);
+    } else {
+      alert("Please enter a valid email.");
+    }
+  }
+
+  // Shop button behavior
+  document.getElementById("shopLink").addEventListener("click", function (e) {
+    if (window.location.pathname.endsWith("home.html")) {
+      e.preventDefault();
+      document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+    }
+  });
+</script>
+  </script>
+
+ <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6848a98aa8bd801908c2a740/1itdtchde';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+<script>
+  function openSidebar() {
+    document.getElementById("sideMenu").classList.add("open");
+  }
+  function closeSidebar() {
+    document.getElementById("sideMenu").classList.remove("open");
+  }
+
+  // Optional: Close if clicked outside
+  document.addEventListener("click", function (event) {
+    const sidebar = document.getElementById("sideMenu");
+    const hamburger = document.querySelector(".hamburger-icon");
+    if (!sidebar.contains(event.target) && !hamburger.contains(event.target)) {
+      sidebar.classList.remove("open");
+    }
+  });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Try a Random Outfit | Cara</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f8ff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: #0984e3;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      gap: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .header img {
+      width: 120px;
+      height: 40px;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .outfit-box {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #0984e3;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: #0984e3;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #056db3;
+    }
+
+    #outfit {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: #2d3436;
+      font-size: 1.1rem;
+      transition: opacity 0.3s;
+    }
+
+    .newsletter {
+      background: #dff2ff;
+      padding: 2rem;
+      text-align: center;
+      border-top: 2px solid #0984e3;
+    }
+
+    .newsletter h3 {
+      margin-bottom: 0.5rem;
+      color: #0984e3;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 60%;
+      max-width: 300px;
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .newsletter button {
+      background: #0984e3;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .newsletter button:hover {
+      background: #056db3;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 1rem;
+      background: #fff;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="logo.png" alt="Cara Logo" />
+    <h1>Cara | Try a Random Outfit</h1>
+  </div>
+
+  <div class="container">
+    <div class="outfit-box">
+      <h2>🎲 Your Style Star Badge Awaits</h2>
+      <p>Click below to get a random outfit suggestion.</p>
+      <button onclick="suggestOutfit()">Try Now</button>
+      <p id="outfit"></p>
+    </div>
+  </div>
+
+  <div class="newsletter">
+    <h3>📬 Stay Fashion-Forward with Cara</h3>
+    <p>Sign up to receive outfit inspo and style secrets!</p>
+    <input type="email" id="emailInput" placeholder="Enter your email" />
+    <button onclick="subscribeNewsletter()">Subscribe</button>
+    <p id="subscribeMsg" style="margin-top: 10px; color: green;"></p>
+  </div>
+
+  <footer>
+    &copy; 2025 Cara Fashion. All rights reserved.
+  </footer>
+
+  <script>
+    const outfits = [
+      "Denim Jacket + White Tee",
+      "Floral Dress + Sandals",
+      "Black Blazer + Jeans",
+      "Graphic Tee + Cargo Pants",
+      "Oversized Shirt + Sneakers",
+      "Crop Top + Skater Skirt",
+      "Turtleneck + Plaid Pants",
+      "Leather Jacket + Boots"
+    ];
+
+    function suggestOutfit() {
+      const pick = outfits[Math.floor(Math.random() * outfits.length)];
+      const output = document.getElementById('outfit');
+      output.style.opacity = 0;
+      setTimeout(() => {
+        output.textContent = "✨ Outfit Suggestion: " + pick;
+        output.style.opacity = 1;
+        localStorage.setItem('randomTryDone', 'true');
+        setTimeout(() => window.location.href = 'challenge.html', 3000);
+      }, 300);
+    }
+
+    function subscribeNewsletter() {
+      const email = document.getElementById('emailInput').value;
+      if (email && email.includes('@')) {
+        localStorage.setItem('newsletterSubscribed', email);
+        document.getElementById('subscribeMsg').textContent = "✅ You're subscribed!";
+        document.getElementById('emailInput').value = '';
+      } else {
+        alert("Please enter a valid email.");
+      }
+    }
+  </script>
+
+</body>
+</html>

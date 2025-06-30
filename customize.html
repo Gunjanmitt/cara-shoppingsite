@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customize Your T-shirt | Cara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: #fefefe;
+      color: #333;
+    }
+
+    header {
+      background-color: #000;
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 40px;
+      gap: 40px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .tshirt-preview {
+      flex: 1;
+      max-width: 450px;
+      position: relative;
+    }
+
+    .tshirt-preview img {
+      width: 100%;
+    }
+
+    #draggable-text {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: black;
+      cursor: move;
+      white-space: pre-wrap;
+      text-align: center;
+    }
+
+    .controls {
+      flex: 1;
+      max-width: 450px;
+      background: #fafafa;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .controls h2 {
+      margin-top: 0;
+    }
+
+    textarea, select, input[type="color"], input[type="number"] {
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 14px 24px;
+      font-size: 1rem;
+      background-color: #000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    .newsletter {
+      background-color: #f3f3f3;
+      padding: 40px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .newsletter h3 {
+      margin-bottom: 10px;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .newsletter button {
+      margin-left: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .controls, .tshirt-preview {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Cara | Customize Your T-shirt</h1>
+  </header>
+
+  <div class="container">
+    <!-- T-shirt Preview Area -->
+    <div class="tshirt-preview">
+      <img src="./plain white tshirt.png" alt="White T-shirt">
+      <div id="draggable-text">Your Text Here</div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <h2>Personalize</h2>
+      <label>Text:</label>
+      <textarea id="text-input" rows="4" placeholder="Type your text here... (Supports multiple lines)"></textarea>
+
+      <label>Font:</label>
+      <select id="font-selector">
+        <option value="Poppins">Poppins</option>
+        <option value="Arial">Arial</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Verdana">Verdana</option>
+      </select>
+
+      <label>Color:</label>
+      <input type="color" id="color-picker" value="#000000"/>
+
+      <label>Font Size:</label>
+      <input type="number" id="font-size" value="24" min="10" max="100"/>
+
+      <button id="add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="newsletter">
+    <h3>Subscribe to our Newsletter</h3>
+    <p>Get updates on exclusive designs and offers!</p>
+    <input type="email" placeholder="Enter your email" />
+    <button>Subscribe</button>
+  </div>
+
+  <script>
+    const textInput = document.getElementById("text-input");
+    const draggableText = document.getElementById("draggable-text");
+    const fontSelector = document.getElementById("font-selector");
+    const colorPicker = document.getElementById("color-picker");
+    const fontSize = document.getElementById("font-size");
+
+    // Update text
+    textInput.addEventListener("input", () => {
+      draggableText.innerText = textInput.value;
+    });
+
+    // Update font
+    fontSelector.addEventListener("change", () => {
+      draggableText.style.fontFamily = fontSelector.value;
+    });
+
+    // Update color
+    colorPicker.addEventListener("input", () => {
+      draggableText.style.color = colorPicker.value;
+    });
+
+    // Update font size
+    fontSize.addEventListener("input", () => {
+      draggableText.style.fontSize = fontSize.value + "px";
+    });
+
+    // Make text draggable
+    draggableText.onmousedown = function(event) {
+      const shiftX = event.clientX - draggableText.getBoundingClientRect().left;
+      const shiftY = event.clientY - draggableText.getBoundingClientRect().top;
+
+      function moveAt(pageX, pageY) {
+        const container = document.querySelector(".tshirt-preview");
+        const bounds = container.getBoundingClientRect();
+        draggableText.style.left = pageX - bounds.left - shiftX + "px";
+        draggableText.style.top = pageY - bounds.top - shiftY + "px";
+      }
+
+      function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+      }
+
+      document.addEventListener("mousemove", onMouseMove);
+
+      document.onmouseup = function() {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.onmouseup = null;
+      };
+    };
+
+    draggableText.ondragstart = function() {
+      return false;
+    };
+
+    // Add to cart click
+    document.getElementById("add-to-cart").addEventListener("click", () => {
+      alert("T-shirt added to cart with your custom design!");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Level Complete | Cara</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fff5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: #27ae60;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      gap: 1rem;
+    }
+
+    .header img {
+      height: 40px;
+      width: 120px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .content {
+      flex: 1;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    h2 {
+      color: #27ae60;
+    }
+
+    .coupon {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #2ecc71;
+      background: #d4f8e8;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      display: inline-block;
+    }
+
+    .newsletter {
+      background: #e8f9f1;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .newsletter h3 {
+      margin-bottom: 0.5rem;
+      color: #27ae60;
+    }
+
+    .newsletter input {
+      padding: 0.6rem;
+      width: 200px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-right: 0.5rem;
+    }
+
+    .newsletter button {
+      background: #27ae60;
+      color: white;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #fff;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="logo.png" alt="Cara Logo" />
+    <h1>Cara | You Did It!</h1>
+  </div>
+
+  <div class="content">
+    <h2>🎉 All Levels Completed!</h2>
+    <p>Thanks for playing. You’ve unlocked your reward:</p>
+    <div class="coupon">10% OFF Coupon: <span id="code">LEVELWIN</span></div>
+    <p style="margin-top: 2rem;">Redirecting to Challenge Page...</p>
+  </div>
+
+  <div class="newsletter">
+    <h3>📬 Get More Rewards & Fashion Tips</h3>
+    <p>Join our newsletter!</p>
+    <input type="email" placeholder="Enter your email" id="emailInput">
+    <button onclick="subscribe()">Subscribe</button>
+    <p id="subscribeMsg" style="color: green;"></p>
+  </div>
+
+  <footer>
+    &copy; 2025 Cara Fashion. All rights reserved.
+  </footer>
+
+  <script>
+    const c1 = localStorage.getItem("level1");
+    const c2 = localStorage.getItem("level2");
+    const c3 = localStorage.getItem("level3");
+
+    if (c1 !== "done" || c2 !== "done" || c3 !== "done") {
+      document.querySelector(".content").innerHTML = "<h2>🚫 Please complete all levels first!</h2>";
+    } else {
+      localStorage.setItem("levelCoupon", "LEVELWIN");
+      setTimeout(() => window.location.href = "challenge.html", 5000);
+    }
+
+    function subscribe() {
+      const email = document.getElementById("emailInput").value;
+      if (email.includes("@")) {
+        localStorage.setItem("newsletter", email);
+        document.getElementById("subscribeMsg").textContent = "You're subscribed!";
+      } else {
+        alert("Please enter a valid email.");
+      }
+    }
+  </script>
+
+</body>
+</html>

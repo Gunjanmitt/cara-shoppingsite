@@ -1,0 +1,101 @@
+<!-- File: virtualtryon.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Virtual Try-On</title>
+  <style>
+    body { background: #111; color: white; font-family: sans-serif; display: flex; justify-content: space-around; padding: 2em; }
+    .box { background: #222; padding: 1em; border-radius: 8px; width: 30%; text-align: center; }
+    input[type=file] { margin-top: 1em; }
+    button { padding: 0.5em 1em; background: green; color: white; border: none; cursor: pointer; margin-top: 1em; }
+    img { max-width: 100%; margin-top: 1em; border-radius: 8px; }
+    .examples img { width: 60px; cursor: pointer; margin: 0.3em; border: 2px solid transparent; }
+    .examples img.selected { border-color: yellow; }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2>Step 1: Upload Person Image</h2>
+    <input type="file" id="personInput" accept="image/*">
+    <img id="personPreview">
+  </div>
+
+  <div class="box">
+    <h2>Step 2: Select Garment</h2>
+    <div class="examples" id="garmentList">
+      <img src="img/products/f1.jpg">
+      <img src="img/products/f2.png">
+      <img src="img/products/n1.png">
+      <img src="img/products/p1.png">
+      <img src="img/products/g1.png">
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Step 3: Result</h2>
+    <button onclick="runTryon()">Run</button>
+    <p id="status" style="color: lime;"></p>
+    <img id="resultImage">
+  </div>
+
+  <script>
+    const personInput = document.getElementById("personInput");
+    const personPreview = document.getElementById("personPreview");
+    const garmentList = document.getElementById("garmentList");
+    const resultImage = document.getElementById("resultImage");
+    const statusText = document.getElementById("status");
+
+    let selectedGarment = null;
+
+    personInput.addEventListener("change", () => {
+      const file = personInput.files[0];
+      if (file) {
+        personPreview.src = URL.createObjectURL(file);
+      }
+    });
+
+    garmentList.addEventListener("click", (e) => {
+      if (e.target.tagName === 'IMG') {
+        [...garmentList.children].forEach(img => img.classList.remove('selected'));
+        e.target.classList.add('selected');
+        selectedGarment = e.target.getAttribute("src");
+      }
+    });
+
+    function runTryon() {
+      const file = personInput.files[0];
+      if (!file || !selectedGarment) {
+        alert("Please upload a person image and select a garment.");
+        return;
+      }
+
+      statusText.textContent = "Processing...";
+
+      const formData = new FormData();
+      formData.append("person", file);
+      formData.append("garment", selectedGarment); // just send path string
+
+      fetch("/tryon", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("Try-on failed");
+        return res.blob();
+      })
+      .then(blob => {
+        resultImage.src = URL.createObjectURL(blob);
+        resultImage.style.display = 'block';
+        statusText.textContent = "Done!";
+      })
+      .catch(err => {
+        statusText.textContent = "Error generating try-on.";
+        console.error(err);
+      });
+    }
+  </script>
+
+</body>
+</html>

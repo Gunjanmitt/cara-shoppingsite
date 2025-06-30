@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fashion Quiz | Cara</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f6f4ff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: #6c5ce7;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      gap: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .header img {
+      width: 120px;
+      height: 40px;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .quiz-container {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 650px;
+      width: 100%;
+    }
+
+    .quiz-container h2 {
+      text-align: center;
+      color: #6c5ce7;
+      margin-bottom: 1.5rem;
+    }
+
+    .question {
+      margin-bottom: 1.5rem;
+    }
+
+    .question p {
+      font-weight: bold;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    button {
+      background: #6c5ce7;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block;
+      margin: 2rem auto 1rem;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #5946e2;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .newsletter {
+      background: #efeaff;
+      padding: 2rem;
+      text-align: center;
+      border-top: 2px solid #6c5ce7;
+    }
+
+    .newsletter h3 {
+      margin-bottom: 0.5rem;
+      color: #6c5ce7;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 60%;
+      max-width: 300px;
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .newsletter button {
+      background: #6c5ce7;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .newsletter button:hover {
+      background: #5946e2;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 1rem;
+      background: #fff;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="logo.png" alt="Cara Logo">
+    <h1>Cara | Fashion Quiz</h1>
+  </div>
+
+  <div class="container">
+    <div class="quiz-container">
+      <h2>🧠 Fashion Knowledge Quiz</h2>
+
+      <form id="quizForm">
+        <div class="question">
+          <p>1. Which color is considered a timeless classic in fashion?</p>
+          <label><input type="radio" name="q1" value="c"> Black</label>
+          <label><input type="radio" name="q1" value="a"> Neon Yellow</label>
+          <label><input type="radio" name="q1" value="b"> Hot Pink</label>
+          <label><input type="radio" name="q1" value="d"> Lime Green</label>
+        </div>
+
+        <div class="question">
+          <p>2. What’s a popular summer fashion accessory?</p>
+          <label><input type="radio" name="q2" value="c"> Sunglasses</label>
+          <label><input type="radio" name="q2" value="a"> Woolen scarf</label>
+          <label><input type="radio" name="q2" value="b"> Beanie</label>
+          <label><input type="radio" name="q2" value="d"> Mittens</label>
+        </div>
+
+        <div class="question">
+          <p>3. Which print is commonly associated with animal-inspired fashion?</p>
+          <label><input type="radio" name="q3" value="d"> Leopard</label>
+          <label><input type="radio" name="q3" value="a"> Floral</label>
+          <label><input type="radio" name="q3" value="b"> Stripes</label>
+          <label><input type="radio" name="q3" value="c"> Polka dots</label>
+        </div>
+
+        <div class="question">
+          <p>4. What is a “capsule wardrobe”?</p>
+          <label><input type="radio" name="q4" value="b"> A few essential clothing pieces that don’t go out of fashion</label>
+          <label><input type="radio" name="q4" value="a"> A closet with colorful items only</label>
+          <label><input type="radio" name="q4" value="c"> Trendy clothes for one season</label>
+          <label><input type="radio" name="q4" value="d"> A wardrobe that rotates monthly</label>
+        </div>
+
+        <div class="question">
+          <p>5. Which of these is a sustainable fashion practice?</p>
+          <label><input type="radio" name="q5" value="b"> Reusing and upcycling clothes</label>
+          <label><input type="radio" name="q5" value="a"> Buying fast fashion weekly</label>
+          <label><input type="radio" name="q5" value="c"> Wearing new outfits daily</label>
+          <label><input type="radio" name="q5" value="d"> Throwing away old clothes after 3 wears</label>
+        </div>
+
+        <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+      </form>
+
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <div class="newsletter">
+    <h3>📩 Join the Style Club</h3>
+    <p>Get fashion tips, deals & exclusive content from Cara!</p>
+    <input type="email" id="emailInput" placeholder="Enter your email" />
+    <button onclick="subscribeNewsletter()">Subscribe</button>
+    <p id="subscribeMsg" style="margin-top: 10px; color: green;"></p>
+  </div>
+
+  <footer>
+    &copy; 2025 Cara Fashion. All rights reserved.
+  </footer>
+
+  <script>
+    function submitQuiz() {
+      const answers = {
+        q1: "c",
+        q2: "c",
+        q3: "d",
+        q4: "b",
+        q5: "b"
+      };
+
+      let score = 0;
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) score++;
+      }
+
+      const result = document.getElementById("result");
+      if (score === 5) {
+        const coupon = "QUIZ" + Math.floor(1000 + Math.random() * 9000);
+        result.innerHTML = `🎉 Perfect! You earned a coupon: <span style="color: green;">${coupon}</span>`;
+        localStorage.setItem("fashionQuizCoupon", coupon);
+        setTimeout(() => window.location.href = "challenge.html", 3000);
+      } else {
+        result.innerHTML = `You scored ${score}/5. Get all correct to earn a coupon. Try again!`;
+        result.style.color = "orange";
+      }
+    }
+
+    function subscribeNewsletter() {
+      const email = document.getElementById('emailInput').value;
+      if (email && email.includes('@')) {
+        localStorage.setItem('newsletterSubscribed', email);
+        document.getElementById('subscribeMsg').textContent = "✅ You're subscribed!";
+        document.getElementById('emailInput').value = '';
+      } else {
+        alert("Please enter a valid email.");
+      }
+    }
+  </script>
+
+</body>
+</html>

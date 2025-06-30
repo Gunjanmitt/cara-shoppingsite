@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spin & Win with Celebration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+      padding: 50px;
+      overflow-x: hidden;
+    }
+    #container {
+      position: relative;
+      display: inline-block;
+    }
+    canvas {
+      border: 10px solid #2a9d8f;
+      border-radius: 50%;
+      background: white;
+    }
+    #arrow {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 30px solid red;
+      top: 185px;
+      left: 390px;
+      transform: rotate(0deg);
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #2a9d8f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #21867a;
+    }
+
+    /* Balloon */
+    .balloon {
+      position: absolute;
+      width: 30px;
+      height: 40px;
+      background: red;
+      border-radius: 50% 50% 50% 50%;
+      animation: floatUp 5s linear forwards;
+    }
+
+    @keyframes floatUp {
+      0% {
+        bottom: 0;
+        opacity: 1;
+      }
+      100% {
+        bottom: 100%;
+        opacity: 0;
+      }
+    }
+
+    /* Coupon popup */
+    #popup {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 999;
+    }
+    #popup h2 {
+      color: #2a9d8f;
+    }
+    #popup .code {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+      background: #eee;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎁 Spin to Win an Offer!</h1>
+  <div id="container">
+    <canvas id="wheel" width="400" height="400"></canvas>
+    <div id="arrow"></div>
+  </div>
+  <br />
+  <button onclick="spin()">SPIN</button>
+
+  <div id="popup">
+    <h2>🎉 You Won!</h2>
+    <div id="rewardText"></div>
+    <div class="code" id="couponCode"></div>
+  </div>
+
+  <script>
+  const canvas = document.getElementById('wheel');
+  const ctx = canvas.getContext('2d');
+  const size = canvas.width;
+  const center = size / 2;
+
+  const segments = [
+    "10% OFF",
+    "Free Shipping",
+    "Buy 1 Get 1",
+    "15% OFF",
+    "₹100 Cashback",
+    "No Luck 😢"
+  ];
+  const colors = ['#F4C430', '#F28C28', '#E07B39', '#F4C430', '#F28C28', '#E07B39'];
+
+  let angle = 0;
+  let spinning = false;
+
+  function drawWheel() {
+    const arc = (2 * Math.PI) / segments.length;
+    ctx.clearRect(0, 0, size, size);
+
+    for (let i = 0; i < segments.length; i++) {
+      const start = i * arc + angle;
+      const end = start + arc;
+
+      ctx.beginPath();
+      ctx.fillStyle = colors[i];
+      ctx.moveTo(center, center);
+      ctx.arc(center, center, center - 10, start, end);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.save();
+      ctx.translate(center, center);
+      ctx.rotate(start + arc / 2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.fillText(segments[i], center - 20, 5);
+      ctx.restore();
+    }
+  }
+
+  function generateCoupon(length = 8) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let code = "";
+    for (let i = 0; i < length; i++) {
+      code += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return code;
+  }
+
+  function showPopup(prize) {
+    const popup = document.getElementById('popup');
+    const rewardText = document.getElementById('rewardText');
+    const coupon = document.getElementById('couponCode');
+
+    rewardText.innerText = prize !== "No Luck 😢" ? `You won: ${prize}` : `Better luck next time!`;
+    coupon.innerText = prize !== "No Luck 😢" ? generateCoupon() : "";
+
+    popup.style.display = 'block';
+    setTimeout(() => popup.style.display = 'none', 6000);
+  }
+
+  function launchBalloons(count = 20) {
+    for (let i = 0; i < count; i++) {
+      const balloon = document.createElement("div");
+      balloon.className = "balloon";
+      balloon.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
+      balloon.style.left = Math.random() * 100 + "%";
+      balloon.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 5000);
+    }
+  }
+
+  function canSpinToday() {
+    const lastSpin = localStorage.getItem("lastSpinDate");
+    const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+    return lastSpin !== today;
+  }
+
+  function recordSpinDate() {
+    const today = new Date().toISOString().slice(0, 10);
+    localStorage.setItem("lastSpinDate", today);
+  }
+
+  function spin() {
+    if (!canSpinToday()) {
+      alert("❌ You have already spun today. Come back tomorrow!");
+      return;
+    }
+
+    if (spinning) return;
+    spinning = true;
+
+    const arc = (2 * Math.PI) / segments.length;
+    const spins = Math.floor(Math.random() * 3) + 4;
+    const randomIndex = Math.floor(Math.random() * segments.length);
+    const finalAngle = randomIndex * arc + arc / 2;
+
+    const totalRotation = spins * 2 * Math.PI + finalAngle;
+    const duration = 4000;
+    const start = performance.now();
+
+    function animate(now) {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - t, 3);
+
+      angle = totalRotation * easeOut;
+      drawWheel();
+
+      if (t < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        spinning = false;
+        const winningIndex = segments.length - 1 - randomIndex;
+        const prize = segments[winningIndex];
+
+        recordSpinDate(); // Save spin date
+        showPopup(prize);
+        if (prize !== "No Luck 😢") launchBalloons();
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  drawWheel();
+</script>

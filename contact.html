@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us - Cara E-Commerce</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: #222;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .map {
+      width: 100%;
+      height: 400px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      margin-bottom: 40px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    form button {
+      background: #2a9d8f;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    form button:hover {
+      background: #21867a;
+    }
+
+    .team {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .team h2 {
+      margin-bottom: 20px;
+    }
+
+    .people {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .person {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      width: 200px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+
+    .person img {
+      width: 100%;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .person h4 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      padding: 30px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      text-align: left;
+      border-top: 5px solid #2a9d8f;
+    }
+
+    footer div {
+      margin: 10px 0;
+      flex: 1 1 250px;
+    }
+
+    footer h3 {
+      border-bottom: 1px solid #555;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    footer ul li {
+      margin-bottom: 6px;
+    }
+
+    footer input[type="email"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: none;
+      margin-top: 8px;
+    }
+
+    footer button {
+      background: #2a9d8f;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    footer button:hover {
+      background: #1d7668;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Contact Cara E-Commerce</h1>
+</header>
+
+<div class="container">
+
+  <!-- Map -->
+  <div class="map">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.904416991142!2d-74.00866478459362!3d40.7127757793309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a3169d61771%3A0x4dfe06d1d1a6e4f0!2sCity%20Hall%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1717706600000!5m2!1sen!2sus"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <!-- Contact Form -->
+  <form onsubmit="return handleSubmit(event)">
+    <label for="name">Name*</label>
+    <input type="text" id="name" placeholder="Your full name" required>
+
+    <label for="email">Email*</label>
+    <input type="email" id="email" placeholder="your.email@example.com" required>
+
+    <label for="message">Message*</label>
+    <textarea id="message" placeholder="Your message here..." required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+
+  <!-- Team Section -->
+  <!-- Team Section -->
+<div class="team">
+  <h2>Meet Our Team</h2>
+  <div class="people">
+    <div class="person">
+      <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Team Member 1">
+      <h4>Mehak Sharma</h4>
+      <p>Support Lead</p>
+    </div>
+    <div class="person">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member 2">
+      <h4>Ravi Verma</h4>
+      <p>Product Manager</p>
+    </div>
+    <div class="person">
+      <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="Team Member 3">
+      <h4>Neha Singh</h4>
+      <p>Customer Relations</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Footer -->
+<footer>
+  <div>
+    
+  
+<section class="full-width-section">
+  <div class="container">
+    <div style="flex: 1; min-width: 250px; padding-right: 30px;">
+      <h3>Contact Us</h3>
+      <p>Email: support@caraecom.com</p>
+      <p>Phone: +1 234 567 890</p>
+      <p>Location: New York, NY</p>
+    </div>
+    <div style="flex: 1; min-width: 250px;">
+      <h3>Subscribe to Our Newsletter</h3>
+      <p>Get the latest updates, offers, and news from Cara E-Commerce directly to your inbox.</p>
+      <input type="email" placeholder="Enter your email address" />
+      <button>Subscribe</button>
+    </div>
+  </div>
+</section>
+
+
+
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    alert(`Thank you, ${name}, for contacting us!`);
+    e.target.reset();
+    return false;
+  }
+</script>
+
+ 
+</body>
+</html>

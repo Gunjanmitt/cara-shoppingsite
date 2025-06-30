@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Shopping Cart - Cara E-Commerce</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<style>
+body { font-family: Arial, sans-serif; padding: 30px; }
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 20px; border-bottom: 1px solid #ddd;
+}
+header img.logo { height: 50px; }
+nav button#cart-btn {
+  position: relative; background: none; border: none; cursor: pointer;
+}
+nav button#cart-btn img { width: 28px; height: 28px; }
+nav button#cart-btn span#cart-count {
+  position: absolute; top: -6px; right: -6px; background: #ff4c60;
+  color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 12px; font-weight: 700;
+}
+#cart {
+  max-width: 900px; margin: 40px auto; padding: 0 20px;
+}
+table {
+  width: 100%; border-collapse: collapse; margin-bottom: 30px;
+}
+th, td {
+  padding: 12px 15px; border: 1px solid #ddd;
+  text-align: center; vertical-align: middle;
+}
+th { background-color: #f7f7f7; }
+img.product-thumb, video.product-thumb {
+  width: 60px; height: 60px; object-fit: cover; border-radius: 5px;
+}
+button.remove-btn {
+  background-color: #ff4c60; border: none; color: #fff;
+  padding: 6px 12px; border-radius: 20px; cursor: pointer;
+}
+button.checkout-btn {
+  background-color: #ff4c60; color: #fff; padding: 15px 40px;
+  border: none; border-radius: 30px; font-size: 1.2rem; cursor: pointer;
+  float: right;
+}
+#total {
+  font-weight: bold; font-size: 1.3rem; text-align: right; margin-bottom: 40px;
+}
+input.qty-input {
+  width: 50px; text-align: center;
+}
+small { color: #555; font-weight: normal; }
+</style>
+</head>
+<body>
+<header>
+  <img src="img/logo.png" alt="Cara Logo" class="logo" />
+  <nav>
+    <button id="cart-btn"onclick="location.href='cart.html'">
+      <img src="img/cart.png" alt="Cart" />
+      <span id="cart-count">0</span>
+    </button>
+  </nav>
+</header>
+
+<section id="cart">
+  <h1>Your Shopping Cart</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th><th>Name</th><th>Price</th><th>Qty</th><th>Subtotal</th><th>Remove</th>
+      </tr>
+    </thead>
+    <tbody id="cart-body"></tbody>
+  </table>
+  <div id="total">Total: $0.00</div>
+  <button class="checkout-btn">Proceed to Checkout</button>
+</section>
+
+<footer style="text-align:center; padding:20px 0; border-top:1px solid #ddd; color:#777;">
+  &copy; 2025 Cara E-Commerce. All rights reserved.
+</footer>
+
+<!-- Scripts -->
+<script>
+const productImages = {
+  f1: "img/products/f1.jpg",
+  f2: "img/products/f2.jpg",
+  f3: "img/products/f3.jpg",
+  f4: "img/products/f4.jpg",
+  f5: "img/products/f5.jpg",
+  f6: "img/products/f6.jpg",
+  f7: "img/products/f7.jpg",
+  f8: "img/products/f8.jpg",
+  n1: "img/products/n1.jpg",
+  n2: "img/products/n2.jpg",
+  n3: "img/products/n3.jpg",
+  n4: "img/products/n4.jpg",
+  n5: "img/products/n5.jpg",
+  n6: "img/products/n6.jpg",
+  n7: "img/products/n7.jpg",
+  n8: "img/products/n8.jpg",
+  p1: "img/products/p1.jpg",
+  p2: "img/products/p2.jpg",
+  p3: "img/products/p3.jpg",
+  p4: "img/products/p4.jpg",
+  g1: "img/products/g1.jpg",
+  g2: "img/products/g2.jpg",
+  g3: "img/products/g3.jpg",
+  g4: "img/products/g4.jpg"
+};
+
+const productVideos = {
+  t1: "./video1.mp4",
+  t2: "./video2.mp4",
+  t3: "./video3.mp4",
+  t4: "./video4.mp4",
+  t5: "./video5.mp4",
+  t6: "./video6.mp4"
+};
+
+function formatPrice(num) {
+  return '$' + num.toFixed(2);
+}
+
+function renderCart() {
+  const cartBody = document.getElementById('cart-body');
+  const totalDiv = document.getElementById('total');
+  let cart = JSON.parse(localStorage.getItem('caraCart')) || {};
+  cartBody.innerHTML = '';
+  let totalPrice = 0;
+
+  for (const key in cart) {
+    const item = cart[key];
+    let baseId = key.split('_')[0];
+    const subtotal = item.price * item.quantity;
+    totalPrice += subtotal;
+
+    const size = key.includes('_') ? key.split('_')[1] : '';
+    let mediaTag = '';
+    if (productVideos[baseId]) {
+      mediaTag = `<video class="product-thumb" controls><source src="${productVideos[baseId]}" type="video/mp4"></video>`;
+    } else {
+      const imgSrc = productImages[baseId] || "img/products/default.jpg";
+      mediaTag = `<img class="product-thumb" src="${imgSrc}" alt="${item.name}" />`;
+    }
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${mediaTag}</td>
+      <td>${item.name}${size ? `<br><small>Size: ${size}</small>` : ''}</td>
+      <td>${formatPrice(item.price)}</td>
+      <td><input type="number" min="1" value="${item.quantity}" data-id="${key}" class="qty-input" /></td>
+      <td>${formatPrice(subtotal)}</td>
+      <td><button class="remove-btn" data-id="${key}">X</button></td>
+    `;
+    cartBody.appendChild(tr);
+  }
+
+  totalDiv.textContent = `Total: ${formatPrice(totalPrice)}`;
+
+  document.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const id = e.target.getAttribute('data-id');
+      removeFromCart(id);
+    });
+  });
+  document.querySelectorAll('.qty-input').forEach(input => {
+    input.addEventListener('change', e => {
+      const id = e.target.getAttribute('data-id');
+      let qty = parseInt(e.target.value);
+      if (qty < 1) qty = 1;
+      updateQuantity(id, qty);
+    });
+  });
+  updateCartCount();
+}
+
+function removeFromCart(id) {
+  let cart = JSON.parse(localStorage.getItem('caraCart')) || {};
+  delete cart[id];
+  localStorage.setItem('caraCart', JSON.stringify(cart));
+  renderCart();
+}
+
+function updateQuantity(id, qty) {
+  let cart = JSON.parse(localStorage.getItem('caraCart')) || {};
+  if (cart[id]) {
+    cart[id].quantity = qty;
+    localStorage.setItem('caraCart', JSON.stringify(cart));
+    renderCart();
+  }
+}
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('caraCart')) || {};
+  let count = 0;
+  for (const id in cart) {
+    count += cart[id].quantity;
+  }
+  const cartCountElem = document.getElementById('cart-count');
+  if (count > 0) {
+    cartCountElem.textContent = count;
+    cartCountElem.style.display = 'inline-block';
+  } else {
+    cartCountElem.style.display = 'none';
+  }
+}
+
+// INITIALIZE
+renderCart();
+
+document.querySelector('.checkout-btn').addEventListener('click', () => {
+  const cart = JSON.parse(localStorage.getItem('caraCart')) || {};
+  if (Object.keys(cart).length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+  window.location.href = 'checkout.html';
+});
+</script>
+</body>
+</html>

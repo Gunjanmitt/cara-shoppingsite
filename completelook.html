@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop the Look Slider</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    :root {
+      --green: #7a993f;
+      --black: #000;
+      --white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--green);
+      padding: 50px 0;
+    }
+
+    .swiper-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .swiper-slide {
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .main-container {
+      display: flex;
+      width: 100%;
+    }
+
+    .left-side {
+      background: var(--green);
+      position: relative;
+      width: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .left-side img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .shop-text {
+      position: absolute;
+      top: 50%;
+      left: -60px;
+      transform: rotate(-90deg) translateY(-50%);
+      transform-origin: left top;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 6px;
+    }
+
+    .right-side {
+      flex: 1;
+      background: var(--white);
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .right-side h2 {
+      font-size: 26px;
+      text-align: center;
+      margin-bottom: 40px;
+      line-height: 1.4;
+    }
+
+    .product-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .product-card {
+      width: calc(25% - 15px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #f0f0f0;
+    }
+
+    .product-name {
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .product-price {
+      margin: 5px 0 10px;
+      color: #444;
+    }
+
+    .product-select {
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .add-to-cart {
+      width: 100%;
+      padding: 8px;
+      background-color: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-to-cart:hover {
+      background-color: #333;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: white;
+    }
+
+    @media (max-width: 1024px) {
+      .product-card {
+        width: calc(50% - 10px);
+      }
+
+      .left-side {
+        width: 300px;
+      }
+
+      .shop-text {
+        font-size: 20px;
+        left: -45px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+
+      .left-side {
+        width: 100%;
+        height: auto;
+      }
+
+      .left-side img {
+        height: 400px;
+      }
+
+      .shop-text {
+        display: none;
+      }
+
+      .right-side {
+        padding: 30px;
+      }
+
+      .product-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <!-- Slide 1 -->
+      <div class="swiper-slide">
+        <div class="main-container">
+          <div class="left-side">
+            <img src="img/look/look1/ChatGPT Image Jun 15, 2025, 03_53_39 PM.png" alt="Model Look" />
+            <div class="shop-text">SHOP THE LOOK</div>
+          </div>
+          <div class="right-side">
+            <h2>Love the outfit?<br>Get the entire look!</h2>
+            <div class="product-grid">
+              <div class="product-card">
+                <img src="img/look/look1/f2.jpg" alt="Top" />
+                <div class="product-name">Knit Top (Moss) - Scoop</div>
+                <div class="product-price">$24.00</div>
+                <select class="product-select">
+                  <option>Small</option><option>Medium</option><option>Large</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look1/f7.jpg" alt="Boots" />
+                <div class="product-name">Winston OTK Boots (Tan)</div>
+                <div class="product-price">$48.00</div>
+                <select class="product-select">
+                  <option>5</option><option>6</option><option>7</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look1/g2.jpg" alt="Jeans" />
+                <div class="product-name">Skinny Jeans</div>
+                <div class="product-price">$32.00</div>
+                <select class="product-select">
+                  <option>Size 23</option><option>Size 24</option><option>Size 25</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look1/p2.jpg" alt="Bag" />
+                <div class="product-name">Satchel Bag</div>
+                <div class="product-price">$58.00</div>
+                <select class="product-select">
+                  <option>One Size</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="swiper-slide">
+        <div class="main-container">
+          <div class="left-side">
+            <img src="img/look/look6/ChatGPT Image Jun 15, 2025, 11_49_54 PM.png" alt="Model Look" />
+            <div class="shop-text">SHOP THE LOOK</div>
+          </div>
+          <div class="right-side">
+            <h2>Love the outfit?<br>Get the entire look!</h2>
+            <div class="product-grid">
+              <div class="product-card">
+                <img src="img/look/look6/g4.jpg" alt="Top" />
+                <div class="product-name">Knit Top (Moss) - Scoop</div>
+                <div class="product-price">$24.00</div>
+                <select class="product-select">
+                  <option>Small</option><option>Medium</option><option>Large</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look6/n3.jpg" alt="Boots" />
+                <div class="product-name">Winston OTK Boots (Tan)</div>
+                <div class="product-price">$48.00</div>
+                <select class="product-select">
+                  <option>5</option><option>6</option><option>7</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look6/n9.webp" alt="Jeans" />
+                <div class="product-name">Skinny Jeans</div>
+                <div class="product-price">$32.00</div>
+                <select class="product-select">
+                  <option>Size 23</option><option>Size 24</option><option>Size 25</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look6/p3.jpg" alt="Bag" />
+                <div class="product-name">Satchel Bag</div>
+                <div class="product-price">$58.00</div>
+                <select class="product-select">
+                  <option>One Size</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="swiper-slide">
+        <div class="main-container">
+          <div class="left-side">
+            <img src="img/look/look5/ChatGPT Image Jun 15, 2025, 11_39_05 PM.png" alt="Model Look" />
+            <div class="shop-text">SHOP THE LOOK</div>
+          </div>
+          <div class="right-side">
+            <h2>Love the outfit?<br>Get the entire look!</h2>
+            <div class="product-grid">
+              <div class="product-card">
+                <img src="img/look/look5/f7.jpg" alt="Top" />
+                <div class="product-name">Knit Top (Moss) - Scoop</div>
+                <div class="product-price">$24.00</div>
+                <select class="product-select">
+                  <option>Small</option><option>Medium</option><option>Large</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look5/g2.jpg" alt="Boots" />
+                <div class="product-name">Winston OTK Boots (Tan)</div>
+                <div class="product-price">$48.00</div>
+                <select class="product-select">
+                  <option>5</option><option>6</option><option>7</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look5/n4.jpg" alt="Jeans" />
+                <div class="product-name">Skinny Jeans</div>
+                <div class="product-price">$32.00</div>
+                <select class="product-select">
+                  <option>Size 23</option><option>Size 24</option><option>Size 25</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look5/p1.jpg" alt="Bag" />
+                <div class="product-name">Satchel Bag</div>
+                <div class="product-price">$58.00</div>
+                <select class="product-select">
+                  <option>One Size</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <!-- Slide 4-->
+      <div class="swiper-slide">
+        <div class="main-container">
+          <div class="left-side">
+            <img src="img/look/look4/ChatGPT Image Jun 15, 2025, 11_32_38 PM.png" alt="Model Look" />
+            <div class="shop-text">SHOP THE LOOK</div>
+          </div>
+          <div class="right-side">
+            <h2>Love the outfit?<br>Get the entire look!</h2>
+            <div class="product-grid">
+              <div class="product-card">
+                <img src="img/look/look4/f5.jpg" alt="Top" />
+                <div class="product-name">Knit Top (Moss) - Scoop</div>
+                <div class="product-price">$24.00</div>
+                <select class="product-select">
+                  <option>Small</option><option>Medium</option><option>Large</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look4/g1.jpg" alt="Boots" />
+                <div class="product-name">Winston OTK Boots (Tan)</div>
+                <div class="product-price">$48.00</div>
+                <select class="product-select">
+                  <option>5</option><option>6</option><option>7</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look4/n6.jpg" alt="Jeans" />
+                <div class="product-name">Skinny Jeans</div>
+                <div class="product-price">$32.00</div>
+                <select class="product-select">
+                  <option>Size 23</option><option>Size 24</option><option>Size 25</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look4/p4.jpg" alt="Bag" />
+                <div class="product-name">Satchel Bag</div>
+                <div class="product-price">$58.00</div>
+                <select class="product-select">
+                  <option>One Size</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 5-->
+<div class="swiper-slide">
+  <div class="main-container">
+    <div class="left-side">
+      <img src="img/look/look3/ChatGPT Image Jun 15, 2025, 04_24_29 PM.png" alt="Model Look" />
+      <div class="shop-text">SHOP THE LOOK</div>
+    </div>
+    <div class="right-side">
+      <h2>Love the outfit?<br>Get the entire look!</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="img/look/look3/g3.jpg" alt="Top" />
+          <div class="product-name">Casual Floral Top</div>
+          <div class="product-price">$28.00</div>
+          <select class="product-select">
+            <option>Small</option><option>Medium</option><option>Large</option>
+          </select>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+        <div class="product-card">
+          <img src="img/look/look3/n5.jpg" alt="Shoes" />
+          <div class="product-name">Retro Sneakers</div>
+          <div class="product-price">$42.00</div>
+          <select class="product-select">
+            <option>6</option><option>7</option><option>8</option>
+          </select>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+        <div class="product-card">
+          <img src="img/look/look3/n6.jpg" alt="Jeans" />
+          <div class="product-name">High-Waist Jeans</div>
+          <div class="product-price">$36.00</div>
+          <select class="product-select">
+            <option>Size 26</option><option>Size 27</option><option>Size 28</option>
+          </select>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+        <div class="product-card">
+          <img src="img/look/look3/p2.jpg" alt="Bag" />
+          <div class="product-name">Crossbody Bag</div>
+          <div class="product-price">$50.00</div>
+          <select class="product-select">
+            <option>One Size</option>
+          </select>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <!-- Slide 6 (You can duplicate this and change images/products) -->
+      <!-- <div class="swiper-slide">...</div> -->
+       <div class="swiper-slide">
+        <div class="main-container">
+          <div class="left-side">
+            <img src="img/look/look2/ChatGPT Image Jun 15, 2025, 04_17_50 PM.png" alt="Model Look" />
+            <div class="shop-text">SHOP THE LOOK</div>
+          </div>
+          <div class="right-side">
+            <h2>Love the outfit?<br>Get the entire look!</h2>
+            <div class="product-grid">
+              <div class="product-card">
+                <img src="img/look/look2/f6.jpg" alt="Top" />
+                <div class="product-name">Knit Top (Moss) - Scoop</div>
+                <div class="product-price">$24.00</div>
+                <select class="product-select">
+                  <option>Small</option><option>Medium</option><option>Large</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look2/f7.jpg" alt="Boots" />
+                <div class="product-name">Winston OTK Boots (Tan)</div>
+                <div class="product-price">$48.00</div>
+                <select class="product-select">
+                  <option>5</option><option>6</option><option>7</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look2/g4.jpg" alt="Jeans" />
+                <div class="product-name">Skinny Jeans</div>
+                <div class="product-price">$32.00</div>
+                <select class="product-select">
+                  <option>Size 23</option><option>Size 24</option><option>Size 25</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+              <div class="product-card">
+                <img src="img/look/look2/p3.jpg" alt="Bag" />
+                <div class="product-name">Satchel Bag</div>
+                <div class="product-price">$58.00</div>
+                <select class="product-select">
+                  <option>One Size</option>
+                </select>
+                <button class="add-to-cart">ADD TO CART</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+      
+    
+    <!-- Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper-container', {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      loop: true,
+    });
+  </script>
+</body>
+</html>

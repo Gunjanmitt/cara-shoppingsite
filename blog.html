@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog Page</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    #blog-header {
+      background-image: url("img/banner/b19.jpg");
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 60px 0;
+    }
+
+    .blog-container {
+      display: flex;
+      gap: 40px;
+      padding: 60px 100px;
+      flex-wrap: wrap;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .blog-img {
+      flex: 1 1 45%;
+    }
+
+    .blog-img img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .blog-details {
+      flex: 1 1 45%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .blog-details h4 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .blog-details span {
+      display: block;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .blog-details p {
+      line-height: 1.8;
+      font-size: 16px;
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    .read-more-btn {
+      display: inline-block;
+      background-color: #088178;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+      width: fit-content;
+    }
+
+    .read-more-btn:hover {
+      background-color: #066e67;
+    }
+
+    @media (max-width: 768px) {
+      .blog-container {
+        flex-direction: column;
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Blog Header -->
+  <section id="blog-header">
+    <h2>#ReadMore</h2>
+    <p>Stay informed with our latest articles</p>
+  </section>
+
+  <!-- Blog 1 -->
+  <section class="blog-container">
+    <div class="blog-img">
+      <img src="img/blog/b21.jpg" alt="Blog Image 1">
+    </div>
+    <div class="blog-details">
+      <h4>Top 10 Fashion Trends of 2025</h4>
+      <span>Posted on June 14, 2025 by Admin</span>
+      <p>Discover what’s trending this year in the fashion world. From bold prints to sustainable fabrics, 2025 is bringing a lot of fresh styles to the runway and streets.</p>
+      <p>Fashion lovers are embracing individuality and creativity like never before.</p>
+      <a href="blog1.html" class="read-more-btn">Continue Reading</a>
+    </div>
+  </section>
+
+  <!-- Blog 2 -->
+  <section class="blog-container">
+    <div class="blog-img">
+      <img src="img/blog/b22.jpg" alt="Blog Image 2">
+    </div>
+    <div class="blog-details">
+      <h4>Sustainable Fashion: Style with Purpose</h4>
+      <span>Posted on June 10, 2025 by Editor</span>
+      <p>Eco-conscious brands are changing the industry. Learn how you can make sustainable fashion choices without compromising on style.</p>
+      <p>From recycled fabrics to ethical manufacturing, here are the top things you should know.</p>
+      <a href="blog2.html" class="read-more-btn">Continue Reading</a>
+    </div>
+  </section>
+
+  <!-- Blog 3 -->
+  <section class="blog-container">
+    <div class="blog-img">
+      <img src="img/blog/b23.jpg" alt="Blog Image 3">
+    </div>
+    <div class="blog-details">
+      <h4>Mastering the Art of Layering</h4>
+      <span>Posted on June 7, 2025 by Admin</span>
+      <p>Layering is more than a trend—it's a skill. Learn how to pair different textures, patterns, and lengths to create visually stunning outfits.</p>
+      <p>Get tips for every season and occasion to stay stylish and cozy.</p>
+      <a href="blog3.html" class="read-more-btn">Continue Reading</a>
+    </div>
+  </section>
+
+  <!-- Blog 4 -->
+  <section class="blog-container">
+    <div class="blog-img">
+      <img src="img/blog/b24.jpg" alt="Blog Image 4">
+    </div>
+    <div class="blog-details">
+      <h4>Accessorize Like a Pro</h4>
+      <span>Posted on June 5, 2025 by Guest Author</span>
+      <p>Jewelry, bags, scarves—accessories can elevate even the simplest look. Learn the rules (and when to break them) with our expert styling advice.</p>
+      <a href="blog4.html" class="read-more-btn">Continue Reading</a>
+    </div>
+  </section>
+
+  <!-- Blog 5 -->
+  <section class="blog-container">
+    <div class="blog-img">
+      <img src="img/blog/b5.jpg" alt="Blog Image 5">
+    </div>
+    <div class="blog-details">
+      <h4>The Evolution of Streetwear</h4>
+      <span>Posted on June 2, 2025 by Admin</span>
+      <p>Streetwear has evolved from underground culture to mainstream influence. Explore its journey and discover what’s next in the world of urban fashion.</p>
+      <a href="blog5.html" class="read-more-btn">Continue Reading</a>
+    </div>
+  </section>
+
+  <!-- Blog 6 -->
+  <section class="blog-container">
+    <div class="blog-img">
+      <img src="img/blog/b6.jpg" alt="Blog Image 6">
+    </div>
+    <div class="blog-details">
+      <h4>Capsule Wardrobe Guide</h4>
+      <span>Posted on May 30, 2025 by Editor</span>
+      <p>Create a minimalist and stylish closet with our capsule wardrobe guide. Learn how to choose versatile pieces and build a collection that saves time and space.</p>
+      <a href="blog6.html" class="read-more-btn">Continue Reading</a>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+<section style="background-color: #002347; color: white; padding: 40px 20px; text-align: center;">
+  <h2 style="font-size: 28px; margin-bottom: 10px;">Sign Up For Newsletters</h2>
+  <p style="font-size: 16px; margin-bottom: 20px;">
+    Get E-mail updates about our latest shop and <span style="color: #ffbd27; font-weight: bold;">special offers</span>.
+  </p>
+  <form style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+    <input type="email" placeholder="Your email address" required
+      style="padding: 10px 20px; border-radius: 30px; border: none; width: 250px; max-width: 90%;" />
+    <button type="submit"
+      style="background-color: #088178; color: white; padding: 10px 25px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer;">
+      Sign Up
+    </button>
+  </form>
+</section>
+
+<!-- Footer Section -->
+<footer style="background-color: #f5f5f5; padding: 50px 20px; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 40px;">
+  <!-- Column 1: Contact -->
+  <div>
+    <h2 style="font-size: 24px; margin-bottom: 15px;">Cara</h2>
+    <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+    <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+    <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+    <div style="margin-top: 10px;">
+      <a href="#"><i class="fab fa-facebook-f" style="margin-right: 10px;"></i></a>
+      <a href="#"><i class="fab fa-instagram" style="margin-right: 10px;"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+
+  <!-- Column 2: About -->
+  <div>
+    <h3 style="margin-bottom: 15px;">About</h3>
+    <p><a href="#" style="color: black; text-decoration: none;">About Us</a></p>
+    <p><a href="#" style="color: black; text-decoration: none;">Delivery Information</a></p>
+    <p><a href="#" style="color: black; text-decoration: none;">Privacy Policy</a></p>
+    <p><a href="#" style="color: black; text-decoration: none;">Terms & Conditions</a></p>
+    <p><a href="#" style="color: black; text-decoration: none;">Contact Us</a></p>
+  </div>
+
+  <!-- Column 3: My Account -->
+  <div>
+    <h3 style="margin-bottom: 15px;">My Account</h3>
+    <p><a href="#" style="color: black; text-decoration: none;">Sign In</a></p>
+    <p><a href="#" style="color: black; text-decoration: none;">View Cart</a></p>
+    <p><a href="#" style="color: black; text-decoration: none;">My Wishlist</a></p>
+    <p><a href="#" style="color: black; text-decoration: none;">Track My Order</a></p>
+    <p><a href="#" style="color: black; text-decoration: none;">Help</a></p>
+  </div>
+
+  <!-- Column 4: Install App -->
+  <div>
+    <h3 style="margin-bottom: 15px;">Install App</h3>
+    <p>From App Store or Google Play</p>
+    <div style="display: flex; gap: 10px; margin: 10px 0;">
+      <img src="img/pay/app.jpg" alt="App Store" style="height: 40px;">
+      <img src="img/pay/play.jpg" alt="Google Play" style="height: 40px;">
+    </div>
+    <p>Secured Payment Gateways</p>
+    <img src="img/pay/pay.png" alt="Payment Methods" style="height: 40px; margin-top: 10px;">
+  </div>
+</footer>
+
+<!-- Font Awesome (only add once in your entire site) -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

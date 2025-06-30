@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .product-container {
+      max-width: 1100px;
+      margin: 50px auto;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .product-images {
+      flex: 1;
+    }
+    .product-images img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product-details {
+      flex: 1;
+    }
+    .breadcrumb {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+    .product-details h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .price {
+      font-size: 24px;
+      color: #008080;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .product-details select,
+    .product-details input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 150px;
+      font-size: 16px;
+    }
+    .add-to-cart {
+      padding: 12px 25px;
+      background-color: #008080;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .add-to-cart:hover {
+      background-color: #006666;
+    }
+    .product-info {
+      margin-top: 30px;
+    }
+    .product-info h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .product-info p {
+      font-size: 15px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="product-container">
+    <div class="product-images">
+      <img src="img/products/f1.jpg" alt="Product Image" />
+    </div>
+
+    <div class="product-details">
+      <p class="breadcrumb">Home / T-Shirt</p>
+      <h1>Men's Fashion T Shirt</h1>
+      <p class="price">$139.00</p>
+
+      <label for="size">Select Size:</label><br />
+      <select id="size">
+        <option value="">Select Size</option>
+        <option value="s">Small</option>
+        <option value="m">Medium</option>
+        <option value="l">Large</option>
+        <option value="xl">X-Large</option>
+      </select><br />
+
+      <label for="quantity">Quantity:</label><br />
+      <input type="number" id="quantity" value="1" min="1" /><br />
+
+      <button class="add-to-cart">Add To Cart</button>
+
+      <div class="product-info">
+        <h2>Product Details</h2>
+        <p>
+          The Gildan Ultra Cotton T-shirt is made from a substantial 6.0 oz. per sq. yd. fabric constructed from 100% cotton. This classic fit preshrunk jersey knit provides unmatched comfort with each wear. Featuring a taped neck and shoulder, and a seamless double-needle collar, and available in a range of colors, it offers it all in the ultimate head-turning package.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

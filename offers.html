@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Special Offers</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      margin: 0;
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    .carousel {
+      position: relative;
+      width: 90vw;
+      max-width: 600px;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      background: white;
+    }
+
+    .slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      user-select: none;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .offer-text {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: white;
+      background-color: rgba(0,0,0,0.5);
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      max-width: 80%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Navigation Buttons */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.4);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 5px 12px;
+      border-radius: 50%;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      z-index: 10;
+    }
+
+    .nav-btn:hover {
+      background-color: rgba(0,0,0,0.7);
+    }
+
+    #prev-btn {
+      left: 15px;
+    }
+
+    #next-btn {
+      right: 15px;
+    }
+
+    /* Dots navigation */
+    .dots {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #bbb;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: #ff4c60;
+    }
+
+    @media (max-width: 480px) {
+      .carousel {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Special Offers</h1>
+
+  <div class="carousel">
+    <div class="slides" id="slides">
+      <div class="slide">
+        <img src="img/banner/b1.jpg" alt="Offer 1" />
+        <div class="offer-text">50% OFF on Summer Collection</div>
+      </div>
+      <div class="slide">
+        <img src="img/banner/b2.jpg" alt="Offer 2" />
+        <div class="offer-text">Buy One Get One Free</div>
+      </div>
+      <div class="slide">
+        <img src="img/banner/b4.jpg" alt="Offer 3" />
+        <div class="offer-text">New Arrivals at 30% OFF</div>
+      </div>
+      <div class="slide">
+        <img src="img/banner/b7.jpg" alt="Offer 4" />
+        <div class="offer-text">Exclusive Deals This Weekend</div>
+      </div>
+      <!-- Add more slides as needed -->
+    </div>
+
+    <button id="prev-btn" class="nav-btn">&#10094;</button>
+    <button id="next-btn" class="nav-btn">&#10095;</button>
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <script>
+    const slides = document.getElementById('slides');
+    const slideCount = slides.children.length;
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const dotsContainer = document.getElementById('dots');
+
+    let currentIndex = 0;
+
+    // Create dots
+    for (let i = 0; i < slideCount; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if(i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        goToSlide(i);
+      });
+      dotsContainer.appendChild(dot);
+    }
+
+    const dots = dotsContainer.querySelectorAll('.dot');
+
+    function updateCarousel() {
+      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[currentIndex].classList.add('active');
+    }
+
+    function goToSlide(index) {
+      if(index < 0) index = slideCount - 1;
+      if(index >= slideCount) index = 0;
+      currentIndex = index;
+      updateCarousel();
+    }
+
+    prevBtn.addEventListener('click', () => {
+      goToSlide(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      goToSlide(currentIndex + 1);
+    });
+
+    // Optional: auto slide every 5 seconds
+    // setInterval(() => {
+    //   goToSlide(currentIndex + 1);
+    // }, 5000);
+
+  </script>
+
+</body>
+</html>

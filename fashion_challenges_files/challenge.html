@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fashion Quest Challenges</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfbff;
+      margin: 0;
+      padding: 1rem;
+      color: #333;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .header img {
+      width: 50px;
+    }
+    .header h2 {
+      font-size: 1.5rem;
+    }
+    .section {
+      margin-top: 2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      margin: 0.2rem 0;
+    }
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .tabs button {
+      background: #eee;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .tabs button.active {
+      background: #ff4da6;
+      color: #fff;
+    }
+    .btn-start {
+      background: #ff4da6;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      float: right;
+    }
+    .expired {
+      color: red;
+      font-weight: bold;
+    }
+    .reward {
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="image.png" alt="challenge" />
+    <h2>Earn prizes by completing fun challenges!</h2>
+  </div>
+
+  <div class="section">
+  <h3>My Prizes <span style="color: red;">(3)</span></h3>
+  <div id="prizes">
+    <div class="card">
+      <p>🎯 15% off on Rs 699 upto Rs 299</p>
+      <span class="expired">Expired</span>
+    </div>
+    <div class="card">
+      <p>🎯 Extra 10% off</p>
+      <span class="expired">Expired</span>
+    </div>
+    <div class="card">
+      <p>🎯 Extra 15% off on min purchase</p>
+      <span class="expired">Expired</span>
+    </div>
+    <div class="card">
+      <p>🎯 Extra 15% off on Tops</p>
+      <span class="expired">Expired</span>
+    </div>
+  </div>
+</div>
+
+
+  <div class="section">
+    <h3>Challenges For You</h3>
+    <div class="tabs">
+      <button class="active" onclick="showTab(event, 'all')">All Challenges</button>
+      <button onclick="showTab(event, 'available')">Available</button>
+      <button onclick="showTab(event, 'ongoing')">Ongoing</button>
+      <button onclick="showTab(event, 'completed')">Completed</button>
+    </div>
+
+    <div id="challenges">
+      <div class="card all available">
+        <p>🎯 Enable Notifications</p>
+        <p class="reward">Win Free Rs. 30 CARACash</p>
+        <small>⏰ Complete Before 30th Jun</small>
+        
+        <button class="btn-start" onclick="location.href='notification.html'">TURN ON notification</button>
+      </div>
+      <div class="card all available">
+        <p>🎯 Complete 1 Level</p>
+        <p class="reward">Win 10% Off Coupon</p>
+        <small>⏰ Complete Before 28th Jun</small>
+        <button class="btn-start" onclick="location.href='level1.html'">PLAY</button>
+      </div>
+      <div class="card all available">
+        <p>🎯 Try Random Outfit</p>
+        <p class="reward">Get a Style Star Badge</p>
+        <small>⏰ Anytime</small>
+        <button class="btn-start" onclick="location.href='randomizer.html'">TRY NOW</button>
+      </div>
+      <div class="card all ongoing">
+        <p>🎯 Take the Fashion Quiz</p>
+        <p class="reward">Earn Rs. 50 Coupon</p>
+        <small>⏰ Before 1st July</small>
+        <button class="btn-start" onclick="location.href='quiz1.html'">TAKE QUIZ</button>
+      </div>
+      <div class="card all ongoing">
+        <p>🎯 Upload a Style Photo</p>
+        <p class="reward">Win Rs. 20 Coupon</p>
+        <small>⏰ Ongoing</small>
+      
+        <button class="btn-start" onclick="location.href='upload.html'">UPLOAD</button>
+      </div>
+      <div class="card all ongoing">
+        <p>🎯 Review a Product</p>
+        <p class="reward">Win Style Points</p>
+        <small>⏰ Till 30th Jun</small>
+        
+        <button class="btn-start" onclick="location.href='review.html'">REVIEW</button>
+      </div>
+      <div class="card all completed">
+        <p>🎯 Completed: Share Your Look</p>
+        <p class="reward">You Earned 5% Off</p>
+        <small>✔ Completed on 20th Jun</small>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showTab(event, category) {
+      const cards = document.querySelectorAll('#challenges .card');
+      cards.forEach(card => {
+        card.style.display = card.classList.contains(category) || category === 'all' ? 'block' : 'none';
+      });
+      document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

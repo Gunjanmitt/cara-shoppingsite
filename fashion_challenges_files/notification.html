@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enable Notifications | Cara</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fffbea;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: #f1c40f;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      gap: 1rem;
+    }
+
+    .header img {
+      height: 40px;
+      width: 120px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .content {
+      flex: 1;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    h2 {
+      color: #f39c12;
+    }
+
+    button {
+      background: #f39c12;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #e67e22;
+    }
+
+    .newsletter {
+      background: #fff3c8;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .newsletter h3 {
+      margin-bottom: 0.5rem;
+      color: #f39c12;
+    }
+
+    .newsletter input {
+      padding: 0.6rem;
+      width: 200px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-right: 0.5rem;
+    }
+
+    .newsletter button {
+      background: #f39c12;
+      color: white;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #fff;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    #result {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="logo.png" alt="Cara Logo" />
+    <h1>Cara | Notifications</h1>
+  </div>
+
+  <div class="content">
+    <h2>🔔 Enable Notifications</h2>
+    <p>Stay in the loop with fashion alerts and new arrivals!</p>
+    <button onclick="enableNotifications()">Enable</button>
+    <p id="result"></p>
+  </div>
+
+  <div class="newsletter">
+    <h3>📬 Join the Style Circle</h3>
+    <p>Subscribe to receive weekly trends and exclusive offers</p>
+    <input type="email" placeholder="Enter your email" id="emailInput">
+    <button onclick="subscribe()">Subscribe</button>
+    <p id="subscribeMsg" style="color: green;"></p>
+  </div>
+
+  <footer>
+    &copy; 2025 Cara Fashion. All rights reserved.
+  </footer>
+
+  <script>
+    function enableNotifications() {
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          localStorage.setItem("notificationsEnabled", "true");
+          localStorage.setItem("caraCash", "30");
+          document.getElementById("result").textContent = "✅ Notifications Enabled! You earned Rs. 30 CARACash!";
+          setTimeout(() => window.location.href = "challenge.html", 3000);
+        } else {
+          alert("Permission denied.");
+        }
+      });
+    }
+
+    function subscribe() {
+      const email = document.getElementById("emailInput").value;
+      if (email.includes("@")) {
+        localStorage.setItem("newsletter", email);
+        document.getElementById("subscribeMsg").textContent = "You're subscribed!";
+      } else {
+        alert("Please enter a valid email.");
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Track Your Order | Cara</title>
+  <link rel="icon" href="img/logo.png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background: #c77133;
+      padding: 20px;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    h2 {
+      margin-top: 40px;
+      font-size: 30px;
+      color: #1e406d;
+    }
+
+    .input-area {
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      padding: 12px 15px;
+      width: 280px;
+      font-size: 16px;
+      border: 2px solid #555;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .tracker {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 60px auto;
+      max-width: 800px;
+      position: relative;
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+
+    .circle {
+      width: 40px;
+      height: 40px;
+      background: #ccc;
+      border-radius: 50%;
+      margin: auto;
+      line-height: 40px;
+      font-weight: bold;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+      transition: 0.3s;
+    }
+
+    .active .circle {
+      background: #28a745;
+      box-shadow: 0 0 10px #28a745;
+    }
+
+    .label {
+      margin-top: 10px;
+      color: #080707;
+    }
+
+    .step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      height: 4px;
+      background: #ccc;
+      top: 18px;
+      left: 50%;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .active + .step::after {
+      background: #28a745;
+    }
+
+    .popup {
+      display: none;
+      background: #fff;
+      padding: 20px;
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid #28a745;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    .popup.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="img/logo.png" alt="Site Logo">
+</header>
+
+<h2>Track Your Order</h2>
+<div class="input-area">
+  <input type="text" id="orderId" placeholder="Enter Order ID">
+  <button onclick="startTracking()">Track</button>
+</div>
+
+<div class="tracker" id="tracker">
+  <div class="step" id="step1">
+    <div class="circle">1</div>
+    <div class="label">Packed</div>
+  </div>
+  <div class="step" id="step2">
+    <div class="circle">2</div>
+    <div class="label">Shipped</div>
+  </div>
+  <div class="step" id="step3">
+    <div class="circle">3</div>
+    <div class="label">In Transit</div>
+  </div>
+  <div class="step" id="step4">
+    <div class="circle">4</div>
+    <div class="label">Delivered</div>
+  </div>
+</div>
+
+<div id="popup" class="popup">
+  ✅ Your package has been delivered! Thank you for shopping with Cara 💖
+</div>
+
+<script>
+  const steps = ["step1", "step2", "step3", "step4"];
+  let current = 0;
+
+  function resetTracker() {
+    steps.forEach(id => document.getElementById(id).classList.remove("active"));
+    document.getElementById("popup").classList.remove("active");
+  }
+
+  function startTracking() {
+    const orderId = document.getElementById("orderId").value.trim();
+    if (!orderId) {
+      alert("Please enter a valid Order ID.");
+      return;
+    }
+
+    resetTracker();
+    current = 0;
+
+    const interval = setInterval(() => {
+      if (current >= steps.length) {
+        clearInterval(interval);
+        document.getElementById("popup").classList.add("active");
+      } else {
+        document.getElementById(steps[current]).classList.add("active");
+        current++;
+      }
+    }, 1000);
+  }
+</script>
+
+<!-- Newsletter Signup -->
+<section style="margin: 60px auto; text-align: center; padding: 40px; background: #fff3e0; border-top: 2px solid #ff9800; border-bottom: 2px solid #ff9800;">
+  <h3 style="font-size: 24px; margin-bottom: 15px;">📬 Subscribe to Our Newsletter</h3>
+  <p style="color: #333; margin-bottom: 20px;">Get updates on your orders, exclusive discounts, and latest trends!</p>
+  <form style="display: flex; justify-content: center; gap: 10px;" onsubmit="event.preventDefault(); alert('Thanks for subscribing! ✨')">
+    <input type="email" placeholder="Enter your email" required style="padding: 10px 15px; font-size: 16px; width: 280px; border: 2px solid #ff9800; border-radius: 6px;">
+    <button type="submit" style="padding: 10px 20px; background: #ff9800; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Subscribe</button>
+  </form>
+</section>
+
+<!-- Continue Shopping -->
+<div style="text-align: center; margin: 40px 0;">
+  <a href="shop.html" style="padding: 12px 25px; background: #088178; color: white; text-decoration: none; font-weight: bold; border-radius: 8px;">⬅️ Continue Shopping</a>
+</div>
+
+<!-- Optional App Download Banner -->
+<section style="background: #e0f7fa; text-align: center; padding: 30px; margin: 40px 0;">
+  <h3 style="margin-bottom: 10px;">📱 Shop on the Go!</h3>
+  <p>Download our mobile app for exclusive app-only deals.</p>
+  <img src="img/logo.png" alt="App Download" style="height: 60px; margin-top: 10px;">
+</section>
+
+
+</body>
+</html>

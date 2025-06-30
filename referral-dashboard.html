@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Give 10%. Get 15%</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 50px;
+  background-color: #f3f1ef;
+}
+.box {
+  background-color: #d8cdc8;
+  border-radius: 12px;
+  padding: 15px;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+}
+.left {
+  flex: 1;
+  padding: 20px;
+  min-width: 300px;
+}
+.right {
+  flex: 1;
+  background: url('./image.png') no-repeat center center / cover;
+}
+h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+p {
+  font-size: 0.95rem;
+  color: #333;
+  margin: 5px 0 15px;
+}
+.social-icons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px 0;
+}
+.social-icons a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #333;
+  margin-right: 10px;
+}
+input, button, textarea {
+  width: 100%; 
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+textarea {
+  resize: none;
+  height: 60px;
+}
+button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.referral-link {
+  font-size: 0.9rem;
+  font-style: italic;
+  margin: 8px 0;
+}
+.referral-link input {
+  font-size: 0.9rem;
+}
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .right {
+    min-height: 300px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="container">
+    <div class="left">
+      <h1>Give 10% - Get 15%</h1>
+      <p>Refer a friend! Give a friend 10% off their first purchase & receive 15% off when they complete their order.</p>
+      <div class="social-icons">
+        <a href="#" title="Email">✉️</a>
+        <a href="#" title="Facebook">📘</a>
+        <a href="#" title="Twitter">🐦</a>
+        <a href="#" title="Link">🔗</a>
+      </div>
+      <form>
+        <input type="email" placeholder="Your email" required />
+        <input type="text" placeholder="Your name" required />
+        <input type="email" placeholder="Your friend's email" required />
+        <textarea>Hey, I just sent you a 10% coupon for your next order at MerchantYard.♡</textarea>
+        <div class="referral-link">
+            Your referral link: <br/>
+            <input id="refLink" type="text" readonly />
+            <button type="button" id="copyBtn">Copy Link</button>
+        </div>
+        <button>Invite Friends</button>
+      </form>
+    </div>
+    <div class="right"></div>
+  </div>
+</div>
+<script>
+function generateReferralCode(length = 8) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let code = '';
+  for (let i = 0; i < length; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+const referralCode = generateReferralCode();
+const referralUrl = `https://yourwebsite.com/ref/${referralCode}`;
+const refInput = document.getElementById('refLink');
+refInput.value = referralUrl;
+
+const copyBtn = document.getElementById('copyBtn');
+copyBtn.addEventListener('click', () => {
+  refInput.select();
+  document.execCommand('copy');
+  copyBtn.textContent = 'Copied!';
+  setTimeout(() => copyBtn.textContent = 'Copy Link', 2000);
+});
+</script>
+</body>
+</html>

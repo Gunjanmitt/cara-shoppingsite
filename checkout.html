@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - Cara E-Commerce</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Header & Cart Icon */
+    header {
+      position: relative;
+      padding: 10px 20px;
+    }
+    nav {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+    #cart-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      padding: 0;
+    }
+    #cart-btn img {
+      width: 28px;
+      height: 28px;
+    }
+    #cart-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #ff4c60;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-weight: 700;
+      display: none;
+      user-select: none;
+    }
+
+    /* Checkout container */
+    #checkout {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: center;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #f7f7f7;
+    }
+    button.confirm-btn {
+      background-color: #ff4c60;
+      color: white;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto 40px;
+    }
+    #total {
+      font-weight: bold;
+      font-size: 1.3rem;
+      text-align: right;
+      margin-bottom: 40px;
+    }
+    .form-section {
+      margin-bottom: 40px;
+    }
+    .form-section label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    .form-section input, .form-section select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .form-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+    .product-thumb {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <img src="img/logo.png" alt="Cara Logo" />
+    <nav>
+      <button id="cart-btn" aria-label="Go to Cart">
+        <img src="img/cart.png" alt="Cart" />
+        <span id="cart-count">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <section id="checkout">
+    <h1>Order Summary</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Name & Size</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="order-body"></tbody>
+    </table>
+    <div id="total">Total: $0.00</div>
+
+    <div class="form-section">
+      <div class="form-title">Shipping Address</div>
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" placeholder="John Doe" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" required />
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" placeholder="1234567890" required />
+
+      <label for="address">Street Address</label>
+      <input type="text" id="address" placeholder="123 Main St" required />
+
+      <label for="city">City</label>
+      <input type="text" id="city" required />
+
+      <label for="state">State</label>
+      <input type="text" id="state" required />
+
+      <label for="zip">ZIP Code</label>
+      <input type="text" id="zip" required />
+    </div>
+
+    <div class="form-section">
+      <div class="form-title">Payment Method</div>
+      <label for="payment">Select Payment Option</label>
+      <select id="payment" required>
+        <option value="card">Credit/Debit Card</option>
+        <option value="upi">UPI</option>
+        <option value="cod">Cash on Delivery</option>
+      </select>
+    </div>
+
+    <button class="confirm-btn">Confirm Order</button>
+  </section>
+
+  <footer style="text-align:center; padding: 20px 0; border-top:1px solid #ddd; color:#777;">
+    &copy; 2025 Cara E-Commerce. All rights reserved.
+  </footer>
+
+  <script>
+    const productImages = {
+      f1: "img/products/f1.jpg",
+      f2: "img/products/f2.jpg",
+      f3: "img/products/f3.jpg",
+      f4: "img/products/f4.jpg",
+      f5: "img/products/f5.jpg",
+      f6: "img/products/f6.jpg",
+      f7: "img/products/f7.jpg",
+      f8: "img/products/f8.jpg",
+      n1: "img/products/n1.jpg",
+      n2: "img/products/n2.jpg",
+      n3: "img/products/n3.jpg",
+      n4: "img/products/n4.jpg",
+      n5: "img/products/n5.jpg",
+      n6: "img/products/n6.jpg",
+      n7: "img/products/n7.jpg",
+      n8: "img/products/n8.jpg",
+      p1: "img/products/p1.jpg",
+      p2: "img/products/p2.jpg",
+      p3: "img/products/p3.jpg",
+      p4: "img/products/p4.jpg",
+      g1: "img/products/g1.jpg",
+      g2: "img/products/g2.jpg",
+      g3: "img/products/g3.jpg",
+      g4: "img/products/g4.jpg",
+    };
+
+    function formatPrice(num) {
+      return '$' + num.toFixed(2);
+    }
+
+    function renderOrder() {
+      const orderBody = document.getElementById('order-body');
+      const totalDiv = document.getElementById('total');
+      let cart = JSON.parse(localStorage.getItem('caraCart')) || {};
+      orderBody.innerHTML = '';
+
+      let totalPrice = 0;
+      for (const key in cart) {
+        const item = cart[key];
+        const baseId = key.split('_')[0];
+        const imgSrc = productImages[baseId] || "img/products/default.jpg";
+
+        const subtotal = item.price * item.quantity;
+        totalPrice += subtotal;
+
+        // Extract size if available in key like "f1_M"
+        const size = key.includes('_') ? key.split('_')[1] : '';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><img class="product-thumb" src="${imgSrc}" alt="${item.name}" /></td>
+          <td>${item.name} <br/><small>${size ? "Size: " + size : ""}</small></td>
+          <td>${formatPrice(item.price)}</td>
+          <td>${item.quantity}</td>
+          <td>${formatPrice(subtotal)}</td>
+        `;
+        orderBody.appendChild(tr);
+      }
+
+      totalDiv.textContent = `Total: ${formatPrice(totalPrice)}`;
+    }
+
+    document.querySelector('.confirm-btn').addEventListener('click', () => {
+      const cart = JSON.parse(localStorage.getItem('caraCart')) || {};
+      if (Object.keys(cart).length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      // Validate form fields
+      const requiredFields = ['fullname', 'email', 'phone', 'address', 'city', 'state', 'zip', 'payment'];
+      for (let id of requiredFields) {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) {
+          alert("Please fill out all required fields.");
+          return;
+        }
+      }
+
+      alert("Thank you for your order! Your purchase has been confirmed.");
+      localStorage.removeItem('caraCart');
+      window.location.href = 'product.html';
+    });
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('caraCart')) || {};
+      let count = 0;
+      for (const key in cart) {
+        count += cart[key].quantity;
+      }
+      const countEl = document.getElementById('cart-count');
+      if (count > 0) {
+        countEl.style.display = 'inline-block';
+        countEl.textContent = count;
+      } else {
+        countEl.style.display = 'none';
+      }
+    }
+
+    document.getElementById('cart-btn').addEventListener('click', () => {
+      window.location.href = 'cart.html';
+    });
+
+    // Initial render and update count
+    renderOrder();
+    updateCartCount();
+  </script>
+
+</body>
+</html>

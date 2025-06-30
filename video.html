@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Shop by Video Demo</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+}
+h1 {
+  text-align: center;
+}
+.video-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.video-container {
+  position: relative;
+  flex: 0 0 30%; /* roughly three per line */
+  margin: 10px;
+}
+video {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 10px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.overlay button {
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.overlay .add {
+  background-color: #fffa65;
+}
+.overlay .buy {
+  background-color: #ff6600;
+  color: #fff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+  background-color: #c8a672; /* Light page background */
+}
+
+.header-box {
+  text-align: center;
+  background-color: #ffe8d6; /* Light pastel shade for the header box */
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.header-box h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0;
+}
+</style>
+
+
+</style>
+</head>
+<body>
+
+  <div class="header-box">
+    <h1>Shop by Video</h1>
+  </div>
+
+  <div class="video-grid">
+    <!-- All your video containers go here -->
+  </div>
+</body>
+
+<div class="video-grid">
+  <div class="video-container" data-product='{"title":"Classic Watch","price":29.99,"link":"cart.html","showAtTime":0}'>
+    <video controls><source src="./video1.mp4" type="video/mp4"></video>
+  </div>
+  <div class="video-container" data-product='{"title":"Running Shoes","price":199.99,"link":"cart.html","showAtTime":0}'>
+    <video controls><source src="./video2.mp4" type="video/mp4"></video>
+  </div>
+  <div class="video-container" data-product='{"title":"Basic White Tee","price":99.99,"link":"cart.html","showAtTime":0}'>
+    <video controls><source src="./video3.mp4" type="video/mp4"></video>
+  </div>
+  <div class="video-container" data-product='{"title":"Black Tshirt","price":219.99,"link":"cart.html","showAtTime":0}'>
+    <video controls><source src="./video4.mp4" type="video/mp4"></video>
+  </div>
+  <div class="video-container" data-product='{"title":"Shoes","price":109.99,"link":"cart.html","showAtTime":0}'>
+    <video controls><source src="./video5.mp4" type="video/mp4"></video>
+  </div>
+  <div class="video-container" data-product='{"title":"Royal Watch","price":34.99,"link":"cart.html","showAtTime":0}'>
+    <video controls><source src="./video6.mp4" type="video/mp4"></video>
+  </div>
+</div>
+
+<script>
+function createOverlay(container, product) {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  overlay.innerHTML = `
+    <span>${product.title} ($${product.price})</span>
+    <button class="add">Add to Cart 🛍️</button>
+    <button class="buy">Buy Now ⚡</button>
+  `;
+
+  overlay.querySelector('.add').addEventListener('click', () => {
+    let cart = JSON.parse(localStorage.getItem('caraCart')) || {};
+    const id = product.title.replace(/\s+/g, '-').toLowerCase();
+    if (cart[id]) {
+      cart[id].quantity += 1;
+    } else {
+      cart[id] = {
+        name: product.title,
+        price: product.price,
+        quantity: 1
+      };
+    }
+    localStorage.setItem('caraCart', JSON.stringify(cart));
+    alert(`${product.title} added to cart! 🛍️`);
+    window.location.href = product.link;
+  });
+
+  overlay.querySelector('.buy').addEventListener('click', () => {
+    window.location.href = product.link;
+  });
+  container.appendChild(overlay);
+}
+
+document.querySelectorAll('.video-container').forEach(container => {
+  const video = container.querySelector('video');
+  const product = JSON.parse(container.getAttribute('data-product'));
+  let overlayVisible = false;
+
+  video.addEventListener('timeupdate', () => {
+    if (!overlayVisible && video.currentTime >= product.showAtTime) {
+      createOverlay(container, product);
+      overlayVisible = true;
+    }
+  });
+});
+</script>
+</body>
+</html>

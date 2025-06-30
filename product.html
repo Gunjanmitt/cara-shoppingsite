@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Detail</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    .top-section {
+      display: flex;
+      gap: 40px;
+    }
+    .right-img {
+      flex: 1;
+      position: relative;
+    }
+    .right-img img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .zoom-box {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border: 2px solid #ccc;
+      display: none;
+      pointer-events: none;
+      z-index: 2;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .zoom-box img {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      object-fit: cover;
+    }
+    .left-details {
+      flex: 1.0;
+    }
+    .left-details h1 {
+      margin: 0 0 10px;
+    }
+    .left-details .price {
+      font-size: 24px;
+      color: #2a9d8f;
+      margin-bottom: 10px;
+    }
+    .stars {
+      color: #f4c150;
+      margin-bottom: 20px;
+    }
+    .left-details p {
+      color: #555;
+    }
+    .select-group {
+      margin: 15px 0;
+    }
+    .select-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .select-group select,
+    .select-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #2a9d8f;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #21867a;
+    }
+    .breadcrumb {
+      max-width: 1100px;
+      margin: 20px auto;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .recommend-container {
+      display: flex;
+      margin-top: -40px; 
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .recommend-form, .size-chart-box {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .recommend-form h3,
+    .size-chart-box h4 {
+      margin-bottom: 10px;
+    }
+
+    .recommended-size {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #2a9d8f;
+    }
+
+    .size-chart-box img {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="shop.html">Shop</a> &gt; <span id="breadcrumbName">Product</span>
+</div>
+
+<div class="container" id="productDetail">Loading...</div>
+
+<script>
+  const products = {
+    f1: { name: "Stylish Jacket", price: 89.99, img: "img/products/f1.jpg", description: "Perfect for chilly weather. A sleek, modern jacket designed for both warmth and style, ideal for cooler weather and urban outfits.", type: "clothing", stars: 4 },
+    f2: { name: "Elegant Dress", price: 120.00, img: "img/products/f2.jpg", description: "Stand out at any occasion. A flowing, timeless dress perfect for formal occasions or evening outings, crafted with attention to detail.", type: "clothing", stars: 5 },
+    f3: { name: "Casual Sneakers", price: 59.50, img: "img/products/f3.jpg", description: "Comfortable and versatile. Everyday sneakers made for comfort and versatility, perfect for running errands or light activities.", type: "shoes", stars: 4 },
+    f4: { name: "Denim Shirt", price: 75.25, img: "img/products/f4.jpg", description: "Classic and rugged. A durable denim shirt suitable for casual wear or layering with jackets, featuring a timeless western style.", type: "clothing", stars: 4 },
+    f5: { name: "Athletic T-Shirt", price: 32.99, img: "img/products/f5.jpg", description: "Lightweight performance wear. Breathable and stretchy t-shirt ideal for gym sessions, jogging, or hot summer days.", type: "clothing", stars: 4 },
+    f6: { name: "Cozy Hoodie", price: 64.50, img: "img/products/f6.jpg", description: "Stay warm and stylish. A soft fleece-lined hoodie for cozy comfort during cooler days, with a snug hood and roomy pockets.", type: "clothing", stars: 4 },
+    f7: { name: "Formal Trousers", price: 85.00, img: "img/products/f7.jpg", description: "Office-ready elegance. Tailored trousers designed for professional and formal settings, offering comfort and sophistication.", type: "clothing", stars: 4 },
+    f8: { name: "Printed Tee", price: 27.99, img: "img/products/f8.jpg", description: "Express your style. Vibrant printed t-shirt that adds personality to casual outfits, made from soft breathable fabric.", type: "clothing", stars: 5 },
+
+     // New n1-n8
+    n1: { name: "Floral Skirt", price: 45.00, img: "img/products/n1.jpg", description: "Fresh and flowy.A light, airy skirt with floral patterns, bringing freshness to any summer outfit.", type: "clothing",stars: 4 },
+    n2: { name: "Cozy Sweater", price: 75.00, img: "img/products/n2.jpg", description: "Warm and snug.Stay warm and stylish with this soft, knitted sweater, designed for comfort and layering.", type: "clothing",stars: 5},
+    n3: { name: "Running Shoes", price: 89.00, img: "img/products/n3.jpg", description: "For ultimate performance.Ergonomically designed running shoes offering support and breathability for active lifestyles.", type: "shoes",stars: 4  },
+    n4: { name: "Winter Coat", price: 130.00, img: "img/products/n4.jpg", description: "Stay warm in style.A heavy-duty coat for winter, lined for extra insulation and styled to keep you looking sharp.", type: "clothing",stars: 4  },
+    n5: { name: "Leather Boots", price: 160.00, img: "img/products/n5.jpg", description: "Tough and trendy.Sturdy leather boots that blend rugged durability with sleek design, suitable for work or weekends.", type: "shoes" ,stars: 3 },
+    n6: { name: "Casual Hat", price: 20.00, img: "img/products/n6.jpg", description: "Everyday accessory.A versatile hat to complement everyday outfits and provide protection from the sun.", type: "clothing",stars: 4  },
+    n7: { name: "Silk Scarf", price: 30.00, img: "img/products/n7.jpg", description: "Elegant and soft.A luxurious silk scarf to accessorize any outfit with elegance and softness.", type: "clothing" ,stars: 5 },
+    n8: { name: "Denim Jacket", price: 95.00, img: "img/products/n8.jpg", description: "Classic and cool.A timeless denim jacket with modern cuts, great for layering over tees and shirts.", type: "clothing",stars: 4  },
+
+         // Watches p1–p4
+    p1: { name: "Classic Watch", price: 220.00, img: "img/products/p1.jpg", description: "Luxury feel.Refined and minimal, this analog watch is a statement of sophistication and tradition.", type: "watch",stars: 5 },
+    p2: { name: "Sporty Watch", price: 180.00, img: "img/products/p2.jpg", description: "Tough and stylish.Built for adventure, this watch features a rugged build, water resistance, and bold design", type: "watch",stars: 4 },
+    p3: { name: "Luxury Watch", price: 500.00, img: "img/products/p3.jpg", description: "Premium design.Crafted from the finest materials, this luxury watch stands out with its craftsmanship and elegance.", type: "watch",stars: 5 },
+    p4: { name: "Digital Watch", price: 130.00, img: "img/products/p4.jpg", description: "Modern tech.A multi-functional digital watch with stopwatch, backlight, and alarm, perfect for tech-lovers.", type: "watch",stars: 4 },
+
+     // Shoes g1–g4
+    g1: { name: "Trail Hiking Shoe", price: 95.00, img: "img/products/g1.jpg", description: "Grip and comfort.Designed for nature trails and rugged terrain, these shoes offer traction, durability, and comfort.", type: "shoes",stars: 4 },
+    g2: { name: "Running Shoe A", price: 75.00, img: "img/products/g2.jpg", description: "Shock absorbing.Breathable and cushioned running shoes optimized for speed and long-distance performance.", type: "shoes",stars: 4 },
+    g3: { name: "Casual Slip-on", price: 55.00, img: "img/products/g3.jpg", description: "Daily wear.Easy to wear and effortlessly stylish, these slip-ons are a go-to for casual, everyday use.", type: "shoes" ,stars: 4},
+    g4: { name: "Basketball Shoe", price: 120.00, img: "img/products/g4.jpg", description: "Court ready.High-performance basketball shoes offering ankle support and grip for better court control.", type: "shoes",stars: 4 }
+  };
+
+
+
+  function getProductId() {
+    return new URLSearchParams(window.location.search).get("id") || 'f1';
+  }
+
+  function showProduct() {
+    const id = getProductId();
+    const product = products[id];
+    if (!product) {
+      document.getElementById("productDetail").innerHTML = "<p>Product not found.</p>";
+      return;
+    }
+
+    document.getElementById("breadcrumbName").innerText = product.name;
+
+    const sizeOptions = {
+      clothing: `<option>Small</option><option selected>Medium</option><option>Large</option>`,
+      shoes: `<option>6</option><option selected>8</option><option>10</option>`,
+      watch: `<option selected>One Size</option>`
+    };
+
+    const stars = "★".repeat(product.stars) + "☆".repeat(5 - product.stars);
+
+    document.getElementById("productDetail").innerHTML = `
+      <div class="top-section">
+        <div class="right-img" id="imageBox">
+          <img src="${product.img}" alt="${product.name}" id="mainImg" onerror="this.onerror=null;this.src='img/products/default.jpg';" />
+          <div class="zoom-box" id="zoomBox">
+            <img src="${product.img}" id="zoomedImg" onerror="this.onerror=null;this.src='img/products/default.jpg';" />
+          </div>
+        </div>
+        <div class="left-details">
+          <h1>${product.name}</h1>
+          <p class="price">$${product.price.toFixed(2)}</p>
+          <div class="stars">${stars}</div>
+          <p>${product.description}</p>
+          <div class="select-group">
+            <label for="colorSelect">Color</label>
+            <select id="colorSelect">
+              <option>Black</option>
+              <option>White</option>
+              <option>Blue</option>
+            </select>
+          </div>
+          <div class="select-group">
+            <label for="sizeSelect">Size</label>
+            <select id="sizeSelect">${sizeOptions[product.type]}</select>
+          </div>
+          <div class="select-group">
+            <label for="quantityInput">Quantity</label>
+            <input type="number" id="quantityInput" value="1" min="1" />
+          </div>
+          <button onclick="addToCart('${id}', '${product.name}', ${product.price})">Add to Cart</button>
+          </div> <!-- .right-img -->
+</div> <!-- .top-section -->
+
+<hr style="margin: 40px 0; border: none; border-top: 2px solid #ccc;">
+
+<div class="recommend-container">
+
+
+        </div>
+      </div>
+
+      <div class="recommend-container">
+        <div class="recommend-form">
+          <h3>Find Your Recommended Size</h3>
+          <div class="select-group">
+            <label for="heightInput">Height (cm)</label>
+            <input type="number" id="heightInput" placeholder="e.g. 170">
+          </div>
+          <div class="select-group">
+            <label for="weightInput">Weight (kg)</label>
+            <input type="number" id="weightInput" placeholder="e.g. 65">
+          </div>
+          <button onclick="recommendSize()">Recommend Size</button>
+          <div class="recommended-size" id="sizeRecommendation"></div>
+        </div>
+        <div class="size-chart-box">
+          <h4>Standard Size Chart</h4>
+          <img id="sizeChartImg" src="" alt="Standard Size Chart">
+        </div>
+      </div>
+    `;
+
+    // Zoom effect
+    const imageBox = document.getElementById("imageBox");
+    const zoomBox = document.getElementById("zoomBox");
+    const zoomedImg = document.getElementById("zoomedImg");
+    imageBox.addEventListener("mousemove", function(e) {
+      const rect = imageBox.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      zoomBox.style.display = "block";
+      zoomBox.style.left = `${x - 75}px`;
+      zoomBox.style.top = `${y - 75}px`;
+      const percentX = x / rect.width;
+      const percentY = y / rect.height;
+      zoomedImg.style.left = `${-percentX * zoomedImg.offsetWidth / 2 + 75}px`;
+      zoomedImg.style.top = `${-percentY * zoomedImg.offsetHeight / 2 + 75}px`;
+    });
+    imageBox.addEventListener("mouseleave", function() {
+      zoomBox.style.display = "none";
+    });
+
+    // Load correct chart
+    const sizeChartMap = {
+      clothing: 'img/mensize.webp',
+      shoes: 'img/shoechart.webp',
+      watch: 'img/sizewatch.webp'
+    };
+    document.getElementById("sizeChartImg").src = sizeChartMap[product.type] || '';
+  }
+
+  function addToCart(id, name, price) {
+    const size = document.getElementById("sizeSelect").value;
+    const qty = parseInt(document.getElementById("quantityInput").value);
+    let cart = JSON.parse(localStorage.getItem("caraCart")) || {};
+    const key = `${id}_${size}`;
+    if (cart[key]) cart[key].quantity += qty;
+    else cart[key] = { name: `${name} (${size})`, price, quantity: qty };
+    localStorage.setItem("caraCart", JSON.stringify(cart));
+    window.location.href = "cart.html";
+  }
+
+  function recommendSize() {
+    const height = parseInt(document.getElementById("heightInput").value);
+    const weight = parseInt(document.getElementById("weightInput").value);
+    let result = "";
+    if (!height || !weight) {
+      result = "Please enter both height and weight.";
+    } else if (height < 160 || weight < 50) {
+      result = "Recommended Size: Small";
+    } else if (height <= 175 && weight <= 75) {
+      result = "Recommended Size: Medium";
+    } else {
+      result = "Recommended Size: Large";
+    }
+    document.getElementById("sizeRecommendation").innerText = result;
+  }
+
+  showProduct();
+</script>
+
+</body>
+</html>

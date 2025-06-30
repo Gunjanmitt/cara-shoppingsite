@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lara | Fashion Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; font-family:'Quicksand',sans-serif; background:#fcefee; color:#333; display:flex; flex-direction:column; min-height:100vh; }
+    header { background:#ffcad4; padding:20px; text-align:center; font-weight:600; font-size:1.5rem; }
+    .video-container { position:relative; width:100%; max-height:550px; overflow:hidden; border-radius:0 0 20px 20px; }
+    .video-container video { width:100%; display:block; }
+    .overlay-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+                    background:rgba(0,0,0,0.4); color:#fff; padding:20px 30px; border-radius:12px;
+                    font-size:2rem; font-weight:600; text-align:center; text-shadow:2px 2px 8px #000; }
+    .start-button { margin:20px auto; padding:14px 30px; font-size:1.2rem; background:#ff69b4; color:#fff;
+                   border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px 12px rgba(255,105,180,0.4);
+                   transition:background 0.3s, transform 0.3s; }
+    .start-button:hover { background:#ff85c1; transform:scale(1.05); }
+    .chat-wrapper { flex:1; display:flex; justify-content:center; align-items:center; padding:20px; }
+    .chat-container { background:#fff; max-width:420px; width:100%; height:80vh; border-radius:20px;
+                     box-shadow:0 8px 24px rgba(0,0,0,0.1); display:flex; flex-direction:column; overflow:hidden; }
+    .chat-header { background:#ffb4d0; color:#fff; text-align:center; padding:15px; font-size:1.2rem; }
+    .chat-messages { flex:1; padding:15px; overflow-y:auto; background:#fffdfd; }
+    .message { margin:10px 0; padding:10px 15px; border-radius:20px; max-width:80%; word-wrap:break-word; clear:both; }
+    .bot { background:#e8f9f5; align-self:flex-start; }
+    .user { background:#ff89a1; color:#fff; align-self:flex-end; }
+    .chat-input { display:flex; border-top:1px solid #eee; }
+    .chat-input input { flex:1; padding:12px; border:none; font-size:16px; }
+    .chat-input button { background:#ff89a1; border:none; color:#fff; padding:12px 18px; cursor:pointer; }
+    .option-buttons { margin-top:10px; }
+    .option-buttons button { background:#ffe9f0; border:1px solid #ffb4d0; border-radius:18px;
+                             padding:6px 12px; margin:5px 5px 0 0; font-size:14px; cursor:pointer; }
+    .bot img { max-width:100%; border-radius:10px; margin-top:10px; display:block; }
+    footer { text-align:center; padding:20px; font-size:0.9rem; color:#888; }
+  </style>
+</head>
+<body>
+
+  <!-- Video Intro -->
+  <header>Lara | Your Fashion Assistant</header>
+  <div class="video-container">
+    <video autoplay muted loop playsinline>
+      <source src="img/lara.mp4" type="video/mp4">
+      Your browser doesn’t support video.
+    </video>
+    <div class="overlay-text">
+      Welcome to your personal fashion assistant,<br><strong>Lara 💄</strong>
+    </div>
+  </div>
+
+  <button class="start-button" onclick="startChat()">Start Your Fashion Journey →</button>
+
+  <!-- Chat Bot Interface (hidden initially) -->
+  <div class="chat-wrapper" id="chatWrapper" style="display:none;">
+    <div class="chat-container">
+      <div class="chat-header">Hi there! ✨ Let’s find your perfect style!</div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message bot">Hey stylish! 👋 What kind of look do you want today?</div>
+        <div class="message bot">
+          <div class="option-buttons">
+            <button onclick="botReply('party')">🎉 Party</button>
+            <button onclick="botReply('college')">🎓 College</button>
+            <button onclick="botReply('wedding')">💍 Wedding</button>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Type your fashion need...">
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 Lara | Your AI Fashion Companion</footer>
+
+  <script>
+    let conversationState = {};
+
+    function startChat() {
+      document.querySelector('.video-container').style.display = 'none';
+      document.querySelector('.start-button').style.display = 'none';
+      document.getElementById('chatWrapper').style.display = 'flex';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+      addMessage(msg, 'user');
+      input.value = '';
+      setTimeout(() => botReply(msg), 600);
+    }
+
+    function addMessage(text, sender, images=[]) {
+      const chat = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = `message ${sender}`;
+      div.innerText = text;
+      if (images.length && sender === 'bot') {
+        images.forEach(src => {
+          const img = document.createElement('img');
+          img.src = src;
+          div.appendChild(document.createElement('br'));
+          div.appendChild(img);
+        });
+      }
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function botReply(userText) {
+      const t = userText.toLowerCase();
+      if (!conversationState.topic) {
+        if (t.includes('party')||t.includes('🎉')) {
+          conversationState.topic='party';
+          addMessage("Ooh, a party! 🥳 Daytime or night?",'bot');
+        } else if (t.includes('college')||t.includes('🎓')) {
+          conversationState.topic='college';
+          addMessage("College style it is! Campus day or special event?",'bot');
+        } else if (t.includes('wedding')||t.includes('💍')) {
+          conversationState.topic='wedding';
+          addMessage("Wedding vibes! Are you a guest or part of the wedding?",'bot');
+        } else {
+          addMessage("Please type 'party', 'college', or 'wedding' to begin.", 'bot');
+        }
+      } else if (!conversationState.subQuestion) {
+        conversationState.subQuestion = t;
+        addMessage("Cool! What style vibe suits you best—casual, glam, boho, edgy?", 'bot');
+      } else if (!conversationState.styleComfort) {
+        conversationState.styleComfort = t;
+        addMessage("Got it. Any favorite colors or accessories you'd like?", 'bot');
+      } else {
+        addMessage("Thanks! Here are some curated outfit ideas ✨", 'bot');
+        let imgs;
+        if ( conversationState.topic==='party' ) {
+          imgs = [
+            './img/party-look.jpg',
+            './img/party-look2.png'
+          ];
+        } else if ( conversationState.topic==='college' ) {
+          imgs = [
+            './img/college-style.png',
+            './img/college-style2.png'
+          ];
+        } else {
+          imgs = [
+            './img/wedding-look2.jpg',
+            './img/wedding-look3.jpg'
+          ];
+        }
+        addMessage("Here are your outfit picks:", 'bot', imgs);
+        conversationState = {};
+      }
+    }
+  </script>
+</body>
+</html>
